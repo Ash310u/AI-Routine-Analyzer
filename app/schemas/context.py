@@ -8,6 +8,9 @@ class SubjectRecord(BaseModel):
     name: str
     aliases: list[str] = Field(default_factory=list)
     category: str | None = None
+    course: str | None = None
+    stream: str | None = None
+    semester: str | None = None
 
 
 class FacultyRecord(BaseModel):
@@ -39,3 +42,5 @@ class RoutineContext(BaseModel):
     sections: list[SectionRecord]
     department: str | None = None
     section: str | None = None
+    course: str | None = None
+    semester: str | None = None

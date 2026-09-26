@@ -11,13 +11,13 @@ from app.resolvers import resolve
 from app.schemas.context import RoutineContext
 from app.schemas.extraction import RoutineExtraction
 from app.schemas.routine import (
-    ResolvedActivity, ResolvedRoom, ResolvedSlot, StandardizedRoutine, StandardizedWorkbook,
+    ResolvedActivity, ResolvedRoom, ResolvedSlot, StandardizedDocument, StandardizedRoutine, StandardizedWorkbook,
 )
 
 
 async def process_routine(
     data: bytes, settings: Settings, master_api: MasterAPI,
-) -> StandardizedRoutine | StandardizedWorkbook:
+) -> StandardizedRoutine | StandardizedWorkbook | StandardizedDocument:
     if is_excel_workbook(data):
         try:
             extracted_routines = [TINTProfile.adapt(raw) for raw in TINTProfile.extract(data, settings)]
@@ -31,16 +31,30 @@ async def process_routine(
                 routine_count=len(routines), routines=routines,
                 requires_review=any(routine.requires_review for routine in routines),
             )
+        if isinstance(extracted, list):
+            context = await master_api.load(extracted[0], profile="generic")
+            routines = [_enrich(item, context, ({}, {}, {})) for item in extracted]
+            return StandardizedWorkbook(routine_count=len(routines), routines=routines,
+                                        requires_review=any(item.requires_review for item in routines))
         context = await master_api.load(extracted, profile="generic")
         return _enrich(extracted, context, ({}, {}, {}))
     pages = image_data_urls(data, settings)
     extracted = await RoutineExtractor(settings, NSECProfile()).extract(pages, None)
+    if isinstance(extracted, list):
+        context = await master_api.load(extracted[0], profile="nsec")
+        caches = ({}, {}, {})
+        routines = [_enrich(item, context, caches) for item in extracted]
+        return StandardizedDocument(routine_count=len(routines), routines=routines,
+                                    requires_review=any(item.requires_review for item in routines))
     context = await master_api.load(extracted, profile="nsec")
     return _enrich(extracted, context, ({}, {}, {}))
 
 
 def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple[dict, dict, dict]) -> StandardizedRoutine:
-    context = context.model_copy(update={"department": extracted.department, "section": extracted.section})
+    context = context.model_copy(update={
+        "department": extracted.department, "section": extracted.section,
+        "course": extracted.course, "semester": extracted.semester,
+    })
     resolved_section = resolve.section(extracted.section, context)
     routine_reasons = []
     if resolved_section.section_id is None:
@@ -59,12 +73,13 @@ def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple
         seen_groups: set[str | int | None] = set()
         for activity in slot.activities:
             group_key_raw = (extracted.section, activity.group_raw)
-            subject_key = (activity.subject_raw, activity.subject_code_raw)
+            subject_key = (extracted.department, extracted.course, extracted.semester,
+                           activity.subject_raw, activity.subject_code_raw)
             faculty_key = (extracted.department, tuple(activity.faculty_raw))
             if group_key_raw not in group_cache:
                 group_cache[group_key_raw] = resolve.group(activity.group_raw, context)
             if subject_key not in subject_cache:
-                subject_cache[subject_key] = resolve.subject(subject_key[0], subject_key[1], context)
+                subject_cache[subject_key] = resolve.subject(activity.subject_raw, activity.subject_code_raw, context)
             if faculty_key not in faculty_cache:
                 faculty_cache[faculty_key] = resolve.faculty(activity.faculty_raw, context)
             resolved_group = group_cache[group_key_raw]

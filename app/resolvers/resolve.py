@@ -1,7 +1,7 @@
 import re
 from difflib import SequenceMatcher
 
-from app.resolvers.matching import normalize, normalize_group, normalize_section
+from app.resolvers.matching import normalize, normalize_department, normalize_group, normalize_section, normalize_semester
 from app.schemas.context import RoutineContext
 from app.schemas.routine import ResolvedFaculty, ResolvedGroup, ResolvedSection, ResolvedSubject
 
@@ -28,7 +28,7 @@ def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFacu
     for raw in raw_values:
         key = normalize(raw)
         scoped = [item for item in context.faculty if not item.department or not context.department
-                  or normalize(item.department) == normalize(context.department)]
+                  or normalize_department(item.department) == normalize_department(context.department)]
         matches = [item for item in scoped if item.initials and normalize(item.initials) == key]
         if not matches:
             matches = [item for item in scoped if any(normalize(alias) == key for alias in item.aliases)]
@@ -48,7 +48,7 @@ def _faculty_identifiers(item, department: str | None) -> set[str]:
     if item.initials:
         identifiers.add(normalize(item.initials))
     if department:
-        identifiers.update(normalize(department + value) for value in tuple(identifiers))
+        identifiers.update(normalize_department(department) + value for value in tuple(identifiers))
     return identifiers
 
 
@@ -63,15 +63,19 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
             match_method=method,
         )
 
+    scoped = [item for item in context.subjects
+              if (not context.department or not item.stream or normalize_department(context.department) == normalize_department(item.stream))
+              and (not context.course or not item.course or normalize(context.course) == normalize(item.course))
+              and (not context.semester or not item.semester or normalize_semester(context.semester) == normalize_semester(item.semester))]
     if code_raw:
-        matches = [item for item in context.subjects if item.code and normalize(item.code) == normalize(code_raw)]
+        matches = [item for item in scoped if item.code and normalize(item.code) == normalize(code_raw)]
         if len(matches) == 1:
             return output(matches[0], "code")
         if len(matches) > 1:
             return output(method="ambiguous")
     if raw:
         for field, method in (("aliases", "alias"), ("name", "exact_name")):
-            matches = [item for item in context.subjects if (
+            matches = [item for item in scoped if (
                 normalize(item.name) == normalize(raw) if field == "name"
                 else any(normalize(alias) == normalize(raw) for alias in item.aliases)
             )]
@@ -82,7 +86,7 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
         # Accept only a clearly unique, near-identical spelling; semantic matching
         # needs a configured embedding index and must never guess an ID.
         scored = sorted(((SequenceMatcher(None, normalize(raw), normalize(item.name)).ratio(), item)
-                         for item in context.subjects), key=lambda pair: pair[0], reverse=True)
+                         for item in scoped), key=lambda pair: pair[0], reverse=True)
         if scored and scored[0][0] >= 0.92 and (len(scored) == 1 or scored[0][0] - scored[1][0] >= 0.08):
             return output(scored[0][1], "fuzzy")
     return output()

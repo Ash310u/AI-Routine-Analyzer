@@ -8,7 +8,7 @@ from app.clients.master_api import MasterAPI, MasterDataError
 from app.config import Settings
 from app.ingestion.document import DocumentError
 from app.llm.extractor import ExtractionError, ModelServiceError
-from app.schemas.routine import StandardizedRoutine, StandardizedWorkbook
+from app.schemas.routine import StandardizedDocument, StandardizedRoutine, StandardizedWorkbook
 from app.services.routine_processor import process_routine
 from app.services.output_store import save_routine
 
@@ -30,8 +30,8 @@ async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.post("/routines/standardize", response_model=StandardizedRoutine | StandardizedWorkbook)
-async def standardize(file: UploadFile = File(...)) -> StandardizedRoutine | StandardizedWorkbook:
+@app.post("/routines/standardize", response_model=StandardizedRoutine | StandardizedWorkbook | StandardizedDocument)
+async def standardize(file: UploadFile = File(...)) -> StandardizedRoutine | StandardizedWorkbook | StandardizedDocument:
     settings = Settings()
     limit = settings.max_upload_mb * 1024 * 1024
     data = await file.read(limit + 1)

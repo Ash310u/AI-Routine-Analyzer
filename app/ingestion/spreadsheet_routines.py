@@ -21,6 +21,7 @@ GROUP = re.compile(r"\b(?:gr|group)[\s-]*([a-z])\b", re.I)
 CODE = re.compile(r"\b[A-Z]{2,}(?:[- ]?[A-Z]{1,5})?[- ]?\d{3}[A-Z]?\b")
 ROOM = re.compile(r"\b(?:R[\s-]?\d{2,4}|Room\s*[:#]?\s*[A-Z]?\d+)\b", re.I)
 INITIALS = re.compile(r"[\[(]([A-Z0-9+/&,\s-]+)[\])]")
+VENUE = re.compile(r"[\[(]((?:H/W\s+Lab|Project\s+Lab[-\s]?\d*|PL[-\s]?\d+|Central\s+Computing\s+Lab))[\])]", re.I)
 
 
 @dataclass
@@ -228,22 +229,34 @@ def _activity(raw: str, sheet: str, row: int, column: int) -> ActivityExtraction
     groups = GROUP.findall(raw)
     codes = CODE.findall(raw.upper())
     faculty = []
+    subject = raw
     for match in INITIALS.finditer(raw.upper()):
         tokens = re.split(r"[+/&,\s]+", match.group(1).strip())
-        if tokens and all(re.fullmatch(r"[A-Z]{1,5}\d?", token) for token in tokens):
+        if tokens and all(re.fullmatch(r"[A-Z]{2,5}\d?", token) for token in tokens) and not any(
+            token in {"LAB", "ROOM", "CLASS", "SEC"} for token in tokens
+        ):
             faculty.extend(tokens)
+            subject = subject.replace(raw[match.start():match.end()], "", 1)
     faculty = list(dict.fromkeys(faculty))
     room = ROOM.search(raw)
+    venue = VENUE.search(raw)
+    if room:
+        subject = ROOM.sub("", subject, count=1)
+    if venue:
+        subject = subject.replace(venue.group(0), "", 1)
+    subject = GROUP.sub("", subject)
+    subject = re.sub(r"[\[(]\s*[\])]", "", subject)
+    subject = re.sub(r"\s+", " ", subject).strip(" -()/") or None
     column_name = ""
     while column:
         column, remainder = divmod(column - 1, 26)
         column_name = chr(65 + remainder) + column_name
     return ActivityExtraction(
         group_raw=f"Gr-{groups[0].upper()}" if len(set(g.upper() for g in groups)) == 1 else None,
-        subject_raw=raw,
+        subject_raw=subject,
         subject_code_raw=codes[0].replace(" ", "") if codes else None,
         subject_type_raw="Lab" if "lab" in raw.casefold() else None,
         faculty_raw=faculty,
-        room_raw=room.group(0) if room else None,
+        room_raw=room.group(0) if room else venue.group(1) if venue else None,
         notes=f"Source: {sheet}!{column_name}{row}",
     )

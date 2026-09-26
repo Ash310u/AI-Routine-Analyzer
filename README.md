@@ -1,6 +1,6 @@
 # Routine Standardizer
 
-The service accepts PDF, image, and Excel workbooks (`.xlsx`, `.xlsm`, `.xls`). NSEC PDF/image routines use one model request with NSEC extraction rules. TINT workbooks with `Department:` timetable blocks use a local parser and return separate routines without a model request. Other Excel layouts use the generic model profile. Every profile adapts its output to `RoutineExtraction` in `app/schemas/canonical_raw.py` before shared context loading, resolution, and validation. Unresolved values are returned with review reasons.
+The service accepts PDF, image, and Excel workbooks (`.xlsx`, `.xlsm`, `.xls`). NSEC PDF/image routines use one model request with NSEC extraction rules. A PDF containing multiple independent routine tables returns `source_type: "document"`, `routine_count`, and a `routines` array. TINT workbooks with `Department:` timetable blocks use a local parser and return separate routines without a model request. Other Excel layouts use the generic model profile. Every profile adapts its output to `RoutineExtraction` in `app/schemas/canonical_raw.py` before shared context loading, resolution, and validation. Unresolved values are returned with review reasons.
 
 ## Setup and commands
 
@@ -53,6 +53,6 @@ The adapter also accepts common snake-case alternatives. Faculty API aliases are
 
 ## Current scope
 
-Subject matching tries exact code, alias, and name before accepting only a uniquely close spelling. Raw punctuation is preserved in output while comparison keys ignore separators. Faculty uses exact abbreviations and aliases before derived initials; short identifiers never use embeddings. Group and section matching is deterministic. Ambiguous or missing matches require review. Room text is preserved without a room ID. Confidence is a binary resolution indicator, not a calibrated probability. There is no automatic second model call; semantic embeddings and optional visual rechecks are future extensions.
+Subject matching scopes ERP records by the routine's stream, course, and semester when those fields are available, then tries exact code, alias, and name before accepting only a uniquely close spelling. Raw punctuation is preserved in output while comparison keys ignore separators. Faculty uses exact abbreviations and aliases before derived initials; short identifiers never use embeddings. Group and section matching is deterministic. Ambiguous or missing matches require review. Room text is preserved without a room ID. Confidence is a binary resolution indicator, not a calibrated probability. There is no automatic second model call; semantic embeddings and optional visual rechecks are future extensions.
 
 The repository has an `origin` remote. Local commits are not pushed automatically.

@@ -41,7 +41,7 @@ class RoutineExtractor:
         else:
             raise ExtractionError(f"Unsupported LLM_PROVIDER: {settings.llm_provider}")
 
-    async def extract(self, image_urls: list[str], document_text: str | None = None) -> RoutineExtraction:
+    async def extract(self, image_urls: list[str], document_text: str | None = None) -> RoutineExtraction | list[RoutineExtraction]:
         content = [{"type": "text", "text": self.profile.prompt}]
         if document_text is not None:
             content.append({"type": "text", "text": SPREADSHEET_CONTEXT + document_text})
@@ -63,7 +63,12 @@ class RoutineExtractor:
         if body.endswith("```"):
             body = body[:-3]
         try:
-            raw = self.profile.raw_schema.model_validate(json.loads(body.strip()))
+            payload = json.loads(body.strip())
+            if isinstance(payload, list):
+                if not payload:
+                    raise ExtractionError("Model returned no routines")
+                return [self.profile.adapt(self.profile.raw_schema.model_validate(item)) for item in payload]
+            raw = self.profile.raw_schema.model_validate(payload)
             return self.profile.adapt(raw)
         except (json.JSONDecodeError, ValidationError) as exc:
             raise ExtractionError("Model response was not valid routine JSON") from exc

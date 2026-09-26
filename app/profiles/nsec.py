@@ -18,6 +18,9 @@ NSEC format rules:
 - AIML_SC, AIML_SV, AI-ML_SD and similar identifiers belong in faculty_raw.
 - A merged cell covering multiple period headers is one slot spanning those periods.
 - Keep handwritten timetable changes that clearly replace printed entries.
+- If the document contains multiple independent section/year routine tables,
+  return a JSON array with one complete routine object per table. For one table,
+  return one routine object. Never merge different sections into one routine.
 """
 
     @staticmethod

@@ -56,6 +56,9 @@ def _subjects(payload: Any) -> list[SubjectRecord]:
             "name": _field(row, "Name", "name", "subject_name", "paper_name", required=True),
             "aliases": aliases,
             "category": _field(row, "SubjectType", "category", "subject_category", "category_name", "type"),
+            "course": _field(row, "Course", "course"),
+            "stream": _field(row, "Stream", "stream", "department"),
+            "semester": _field(row, "Semester", "semester"),
         }))
     return result
 
@@ -136,11 +139,13 @@ class MasterAPI:
                     self.settings.group_api_url, self.settings.section_api_url)
         else:
             return RoutineContext(subjects=[], faculty=[], groups=[], sections=[],
-                                  department=routine.department, section=routine.section)
+                                  department=routine.department, section=routine.section,
+                                  course=routine.course, semester=routine.semester)
         subject_url, faculty_url, group_url, section_url = urls
         if profile == "nsec" and not subject_url and not faculty_url:
             return RoutineContext(subjects=[], faculty=[], groups=[], sections=[],
-                                  department=routine.department, section=routine.section)
+                                  department=routine.department, section=routine.section,
+                                  course=routine.course, semester=routine.semester)
         if not subject_url or not faculty_url:
             prefix = "NSEC_" if profile == "nsec" else ""
             raise MasterDataError(f"Set {prefix}SUBJECT_API_URL and {prefix}FACULTY_API_URL in .env")
@@ -151,4 +156,5 @@ class MasterAPI:
             self._get(section_url, "sections", _sections) if section_url else asyncio.sleep(0, result=[]),
         )
         return RoutineContext(subjects=subjects, faculty=faculty, groups=groups, sections=sections,
-                              department=routine.department, section=routine.section)
+                              department=routine.department, section=routine.section,
+                              course=routine.course, semester=routine.semester)

@@ -16,3 +16,11 @@ def normalize_group(value: str | None) -> str:
 
 def normalize_section(value: str | None) -> str:
     return re.sub(r"^(section|sec)", "", normalize(value))
+
+
+def normalize_department(value: str | None) -> str:
+    return re.sub(r"^(departmentof|deptof|department|dept)", "", normalize(value))
+
+
+def normalize_semester(value: str | None) -> str:
+    return re.sub(r"(semester|sem)$", "", normalize(value))

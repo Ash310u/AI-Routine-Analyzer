@@ -81,3 +81,11 @@ class StandardizedWorkbook(BaseModel):
     routines: list[StandardizedRoutine]
     requires_review: bool
     output_file: str | None = None
+
+
+class StandardizedDocument(BaseModel):
+    source_type: Literal["document"] = "document"
+    routine_count: int
+    routines: list[StandardizedRoutine]
+    requires_review: bool
+    output_file: str | None = None

@@ -4,15 +4,18 @@ import asyncio
 import json
 import unittest
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from app.config import Settings
 from app.clients.master_api import MasterAPI
 from app.llm.extractor import RoutineExtractor
+from app.ingestion.spreadsheet_routines import _activity
 from app.profiles.nsec import NSECProfile
 from app.resolvers import resolve
 from app.schemas.canonical_raw import RoutineExtraction
 from app.schemas.context import FacultyRecord, GroupRecord, RoutineContext, SectionRecord, SubjectRecord
 from app.services.routine_processor import _enrich
+from app.services.routine_processor import process_routine
 
 
 class FakeModel:
@@ -39,6 +42,32 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual(raw.slots[0].end_period, 5)
         self.assertEqual(raw.slots[0].activities[0].faculty_raw, ["AIML_SC"])
         self.assertIn("NSEC format rules", model.messages[0]["content"][0]["text"])
+
+    def test_nsec_multi_table_pdf_returns_document_collection(self):
+        payload = [
+            {"department": "AIML", "section": section,
+             "slots": [{"day": "Monday", "start_time": "10:00", "end_time": "11:00",
+                        "slot_type": "class", "activities": [{"subject_raw": "DSA"}]}]}
+            for section in ("AIML.1", "AIML.2")
+        ]
+        model = FakeModel(payload)
+        extracted = asyncio.run(RoutineExtractor(Settings(), NSECProfile(), model).extract(["data:image/png;base64,AA=="]))
+        self.assertEqual(len(extracted), 2)
+
+        class FakeMaster:
+            async def load(self, routine, profile):
+                self.profile = profile
+                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[])
+
+        master = FakeMaster()
+        with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+            "app.services.routine_processor.RoutineExtractor.extract", return_value=extracted,
+        ):
+            result = asyncio.run(process_routine(b"pdf", Settings(), master))
+        self.assertEqual(master.profile, "nsec")
+        self.assertEqual(result.source_type, "document")
+        self.assertEqual(result.routine_count, 2)
+        self.assertEqual([item.section.raw for item in result.routines], ["AIML.1", "AIML.2"])
 
     def test_alias_initials_and_department_scope_are_deterministic(self):
         context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
@@ -71,6 +100,16 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         first_section = routine.model_copy(update={"section": "1"})
         self.assertEqual(_enrich(first_section, context, caches).slots[0].activities[0].group.group_id, 91)
 
+    def test_duplicate_code_is_scoped_to_stream_and_semester(self):
+        context = RoutineContext(subjects=[
+            SubjectRecord(id=726, code="PCCCS301", name="DSA", stream="AIML", semester="3rd"),
+            SubjectRecord(id=927, code="PCCCS301", name="DSA", stream="CSE", semester="3rd"),
+        ], faculty=[], groups=[], sections=[], department="CSE", semester="3rd")
+        self.assertEqual(resolve.subject("PCC-CS301", "PCC-CS301", context).subject_master_id, 927)
+        context.department = "Dept of CSE"
+        context.semester = "3rd Semester"
+        self.assertEqual(resolve.subject("PCC-CS301", "PCC-CS301", context).subject_master_id, 927)
+
     def test_nsec_does_not_reuse_tint_master_urls(self):
         settings = Settings(subject_api_url="https://example.test/tint/subjects",
                             faculty_api_url="https://example.test/tint/faculty")
@@ -97,6 +136,13 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertTrue(all(slot.activities[0].requires_review for slot in result.slots))
         self.assertTrue(all(any("Overlapping activity" in reason for reason in slot.activities[0].review_reasons)
                             for slot in result.slots))
+
+    def test_tint_lab_venue_is_not_faculty(self):
+        activity = _activity("PCC-CS392 (TD+SC) Gr-B (H/W Lab)", "2nd year", 4, 7)
+        self.assertEqual(activity.subject_raw, "PCC-CS392")
+        self.assertEqual(activity.faculty_raw, ["TD", "SC"])
+        self.assertEqual(activity.group_raw, "Gr-B")
+        self.assertEqual(activity.room_raw, "H/W Lab")
 
 
 if __name__ == "__main__":
