@@ -1,5 +1,12 @@
 # Routine Standardizer --- LLM-First Implementation Plan
 
+> Architecture update: the implemented service uses input profiles. NSEC PDFs/images
+> use a profile prompt and validated model output; TINT Department-block workbooks
+> use a local parser; other workbooks use the generic model profile. Each path
+> adapts to the canonical raw routine in `app/schemas/canonical_raw.py` before
+> context loading and enrichment. The diagram below is the original plan;
+> [FLOWCHART.md](FLOWCHART.md) describes the implemented flow.
+
 ## 1. Goal
 
 Build a Python service that accepts a complete college routine/timetable
