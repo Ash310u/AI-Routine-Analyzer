@@ -33,9 +33,13 @@ def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFacu
         # Timetable prefixes identify a section/stream, not the employee.
         # Keep the original raw value in the result, but look up only its suffix.
         key = normalize(raw.rsplit("_", 1)[-1])
-        matches = [item for item in context.faculty
-                   if key and (not item.category or normalize(item.category) in {"academic", "academics"})
-                   and key in _faculty_identifiers(item)]
+        eligible = [item for item in context.faculty
+                    if not item.category or normalize(item.category) in {"academic", "academics"}]
+        # The API's Abbreviation is authoritative. Name-derived initials are
+        # only a fallback when no employee has that explicit abbreviation.
+        matches = [item for item in eligible if key and item.initials and normalize(item.initials) == key]
+        if not matches:
+            matches = [item for item in eligible if key and key in _faculty_identifiers(item)]
         if len(matches) > 1 and department:
             same_department = [item for item in matches if item.department and
                                normalize_department(item.department) == normalize_department(department)]

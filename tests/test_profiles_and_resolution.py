@@ -325,6 +325,24 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual([item.faculty_id for item in resolved], [11, 12, None, 11])
         self.assertEqual([item.raw for item in resolved], ["AIML_KB", "AML_SJ", "AIML_", "KB"])
 
+    def test_api_abbreviation_beats_colliding_name_initials(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=_faculty([
+            {"EmployeeId": 53, "EmployeeName": "Kallol Bhattacharya", "Abbreviation": "KB",
+             "Stream": "AIML + CSE", "Department": "Academics"},
+            {"EmployeeId": 113, "EmployeeName": "Kaushik Biswas", "Abbreviation": None,
+             "Stream": "ECE", "Department": "Academics"},
+            {"EmployeeId": 9, "EmployeeName": "Krishnendu Bhattacharyya", "Abbreviation": None,
+             "Stream": "BSH", "Department": "Academics"},
+        ]))
+        routine = RoutineExtraction.model_validate({"department": "AIML", "section": "AIML.3B", "slots": [{
+            "day": "Monday", "start_time": "10:00", "end_time": "11:00", "slot_type": "class",
+            "activities": [{"subject_raw": "OOP Lab", "faculty_raw": ["AIML_KB"]}],
+        }]})
+        enriched = _enrich(routine, context, ({}, {}, {}))
+        faculty = enriched.slots[0].activities[0].faculty[0]
+        self.assertEqual(faculty.raw, "AIML_KB")
+        self.assertEqual(faculty.faculty_id, 53)
+
     def test_prefixed_initial_remains_unresolved_when_department_tie_remains(self):
         context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
             FacultyRecord(id=41, name="Sanjay Ghosh", department="AIML"),
