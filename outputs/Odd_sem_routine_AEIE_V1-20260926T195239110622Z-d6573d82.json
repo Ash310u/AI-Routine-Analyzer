@@ -1,0 +1,2978 @@
+{
+  "source_type": "document",
+  "routine_count": 3,
+  "routines": [
+    {
+      "college": "Netaji Subhash Engineering College",
+      "course": null,
+      "department": "Dept of AEIE",
+      "year": "2nd yr.",
+      "semester": "3rd Semester",
+      "section": {
+        "raw": null,
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "ROOM A308",
+      "routine_version": "V1",
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "09:20:00",
+          "end_time": "10:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 2,
+          "end_period": 2,
+          "start_time": "10:10:00",
+          "end_time": "11:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mathematics -II",
+                "code_raw": "BS-M301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "BES",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 3,
+          "end_period": 4,
+          "start_time": "11:00:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analog Integrated Circuit",
+                "code_raw": "PC-EI303",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "ANS",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "13:30:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Electronic Circuits Lab",
+                "code_raw": "PC-EI394",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "LM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(ECE)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "09:20:00",
+          "end_time": "10:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analog Integrated Circuit",
+                "code_raw": "PC-EI303",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "ANS",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 2,
+          "end_period": 4,
+          "start_time": "10:10:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Sensors and Transducers Lab",
+                "code_raw": "PC-EI392",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "LM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 6,
+          "end_period": 6,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Network Analysis",
+                "code_raw": "PC-EI301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mathematics -III",
+                "code_raw": "BS-M301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "BES",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mentoring",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "09:20:00",
+          "end_time": "10:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "10:10:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Electronic Circuits",
+                "code_raw": "PC-EI304",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "11:50:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Sensors and Transducers",
+                "code_raw": "PC-EI302",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "13:30:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analog Circuits Design Lab",
+                "code_raw": "PC-EI393",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "ANS",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "PD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 1,
+          "end_period": 2,
+          "start_time": "09:20:00",
+          "end_time": "11:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Environmental Science",
+                "code_raw": "MC-ES301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "IG",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(BES)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 3,
+          "end_period": 4,
+          "start_time": "11:00:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Network Analysis",
+                "code_raw": "PC-EI301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 6,
+          "end_period": 7,
+          "start_time": "13:30:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Sensors and Transducers",
+                "code_raw": "PC-EI302",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mentoring",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "09:20:00",
+          "end_time": "10:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 2,
+          "end_period": 4,
+          "start_time": "10:10:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Circuits and Network Lab",
+                "code_raw": "PC-EI391",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "PD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 6,
+          "end_period": 6,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Electronic Circuits",
+                "code_raw": "PC-EI304",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mathematics -III",
+                "code_raw": "BS-M301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "BES",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    },
+    {
+      "college": "Netaji Subhash Engineering College",
+      "course": null,
+      "department": "Dept of AEIE",
+      "year": "3rd yr.",
+      "semester": "5th Semester",
+      "section": {
+        "raw": null,
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "SEMINAR ROOM",
+      "routine_version": "V1",
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "OOPL",
+                "code_raw": "OE-EI501",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(CSE)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Comm Tech.",
+                "code_raw": "PC-EI502",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Embedded System",
+                "code_raw": "PE-EI503",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Seminar",
+                "code_raw": "EI-581",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 1,
+          "end_period": 3,
+          "start_time": "11:00:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Industrial Instrumentation Lab",
+                "code_raw": "PC-EI592",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "LM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Introduction to MEMS",
+                "code_raw": "PE-EI502",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Control System Lab",
+                "code_raw": "PC-EI591",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "PD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Embedded System",
+                "code_raw": "PE-EI503",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Control System",
+                "code_raw": "PC-EI501",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "OOPL",
+                "code_raw": "OE-EI501",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(CSE)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Comm Tech.",
+                "code_raw": "PC-EI502",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "16:50:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mentoring",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 1,
+          "end_period": 3,
+          "start_time": "11:00:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "OOPL Lab",
+                "code_raw": "OEEI591",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(CS)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Electromagnetic Theory",
+                "code_raw": "PC-EI503_ECE",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "16:50:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Comm Tech.",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 2,
+          "end_period": 2,
+          "start_time": "11:50:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Embedded System",
+                "code_raw": "PE-EI503",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 3,
+          "end_period": 3,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Control System",
+                "code_raw": "PC-EI501",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Introduction to MEMS",
+                "code_raw": "PE-EI502",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Electromagnetic Theory",
+                "code_raw": "PC-EI503_ECE",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "16:50:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mentoring",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "ANS",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    },
+    {
+      "college": "Netaji Subhash Engineering College",
+      "course": null,
+      "department": "Dept of AEIE",
+      "year": "4th yr.",
+      "semester": "7th Semester",
+      "section": {
+        "raw": null,
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "ROOM 416",
+      "routine_version": "V1",
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Telemetry & wireless Sensor Network",
+                "code_raw": "OE-EI701",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Control System",
+                "code_raw": "PE-EI702",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 7,
+          "end_period": 8,
+          "start_time": "16:00:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Non-Conventional Energy System",
+                "code_raw": "PE-EI702",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analytical Instrumentation",
+                "code_raw": "PE-EI703",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Computer Networks",
+                "code_raw": "ES-CS701",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "16:50:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 1,
+          "end_period": 3,
+          "start_time": "11:00:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Project",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analytical Instrumentation",
+                "code_raw": "PE-EI703",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 6,
+          "end_period": 6,
+          "start_time": "15:10:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mentoring",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Non-Conventional Energy System",
+                "code_raw": "PE-EI702",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "16:50:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Control System",
+                "code_raw": "PE-EI702",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 1,
+          "end_period": 3,
+          "start_time": "11:00:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Project",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Computer Networks",
+                "code_raw": "ES-CS701",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Thursday",
+          "start_period": 8,
+          "end_period": 8,
+          "start_time": "16:50:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 2,
+          "end_period": 2,
+          "start_time": "11:50:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 3,
+          "end_period": 3,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Telemetry & wireless Sensor Network",
+                "code_raw": "OE-EI701",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mentoring",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Friday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Project",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    }
+  ],
+  "requires_review": true,
+  "output_file": "/home/ass/src/AI_routine_analyzer/output/Odd_sem_routine_AEIE_V1-20260926T195239110622Z-d6573d82.json"
+}
