@@ -76,7 +76,7 @@ def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple
             group_key_raw = (extracted.section, activity.group_raw)
             subject_key = (extracted.department, extracted.course, extracted.semester,
                            activity.subject_raw, activity.subject_code_raw)
-            faculty_key = (extracted.department, tuple(activity.faculty_raw))
+            faculty_key = (resolve.faculty_department(context), tuple(activity.faculty_raw))
             if group_key_raw not in group_cache:
                 group_cache[group_key_raw] = resolve.group(activity.group_raw, context)
             if subject_key not in subject_cache:

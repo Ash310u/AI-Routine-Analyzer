@@ -113,6 +113,34 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertIsNone(resolve.faculty(["AIML_SG"], context)[0].faculty_id)
         self.assertIsNone(resolve.faculty(["AIML_"], context)[0].faculty_id)
 
+    def test_class_section_department_breaks_faculty_ties_without_cache_leak(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], faculty=[
+            FacultyRecord(id=41, name="Sourav Chandra", department="CSE"),
+            FacultyRecord(id=42, name="Soma Chatterjee", department="ECE"),
+        ])
+        caches = ({}, {}, {})
+
+        def routine(section):
+            return RoutineExtraction.model_validate({"section": section, "slots": [{
+                "day": "Monday", "start_time": "10:00", "end_time": "11:00", "slot_type": "class",
+                "activities": [{"subject_raw": "Class", "faculty_raw": ["SC"]}],
+            }]})
+
+        cse = _enrich(routine("CSE.2A"), context, caches)
+        ece = _enrich(routine("ECE.2A"), context, caches)
+        self.assertEqual(cse.slots[0].activities[0].faculty[0].faculty_id, 41)
+        self.assertEqual(ece.slots[0].activities[0].faculty[0].faculty_id, 42)
+        self.assertEqual(cse.slots[0].activities[0].faculty[0].raw, "SC")
+        self.assertIsNone(resolve.faculty(["ZZ"], context)[0].faculty_id)
+        self.assertIsNone(resolve.faculty(["SC"], context)[0].faculty_id)
+
+    def test_routine_department_takes_priority_over_section_for_faculty(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], department="CSE", section="ECE.2A", faculty=[
+            FacultyRecord(id=41, name="Sourav Chandra", department="CSE"),
+            FacultyRecord(id=42, name="Soma Chatterjee", department="ECE"),
+        ])
+        self.assertEqual(resolve.faculty(["SC"], context)[0].faculty_id, 41)
+
     def test_employee_stream_sets_faculty_scope(self):
         faculty = _faculty([{
             "EmployeeId": 7, "EmployeeName": "Somnath Chatterjee",

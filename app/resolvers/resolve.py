@@ -1,8 +1,12 @@
+import re
 from difflib import SequenceMatcher
 
 from app.resolvers.matching import normalize, normalize_department, normalize_group, normalize_section, normalize_semester
 from app.schemas.context import RoutineContext
 from app.schemas.routine import ResolvedFaculty, ResolvedGroup, ResolvedSection, ResolvedSubject
+
+
+SECTION_DEPARTMENT = re.compile(r"^\s*([A-Za-z][A-Za-z0-9&+ /-]*?)\s*[._]\s*\d")
 
 
 def section(raw: str | None, context: RoutineContext) -> ResolvedSection:
@@ -23,6 +27,7 @@ def group(raw: str | None, context: RoutineContext) -> ResolvedGroup | None:
 
 
 def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFaculty]:
+    department = faculty_department(context)
     result = []
     for raw in raw_values:
         keys = [normalize(raw)]
@@ -38,14 +43,27 @@ def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFacu
                        and key in _faculty_identifiers(item)]
             if matches:
                 break
-        if len(matches) > 1 and context.department:
+        if len(matches) > 1 and department:
             same_department = [item for item in matches if item.department and
-                               normalize_department(item.department) == normalize_department(context.department)]
+                               normalize_department(item.department) == normalize_department(department)]
             if same_department:
                 matches = same_department
         item = matches[0] if len(matches) == 1 else None
         result.append(ResolvedFaculty(raw=raw, faculty_id=item.id if item else None, name=item.name if item else None))
     return result
+
+
+def faculty_department(context: RoutineContext) -> str | None:
+    if context.department:
+        return context.department
+    match = SECTION_DEPARTMENT.match(context.section or "")
+    if not match:
+        return None
+    candidate = match.group(1).strip()
+    key = normalize_department(candidate)
+    if any(item.department and normalize_department(item.department) == key for item in context.faculty):
+        return candidate
+    return None
 
 
 def _faculty_identifiers(item) -> set[str]:
