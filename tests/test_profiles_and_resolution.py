@@ -315,6 +315,16 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual(result.slots[0].activities[0].faculty[0].faculty_id, 41)
         self.assertEqual(result.slots[0].activities[0].faculty[0].raw, "AIML_SG")
 
+    def test_faculty_prefix_is_never_used_as_lookup_key(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
+            FacultyRecord(id=10, initials="AIML_KB", department="AIML"),
+            FacultyRecord(id=11, initials="KB", department="AIML"),
+            FacultyRecord(id=12, initials="SJ", department="AIML"),
+        ])
+        resolved = resolve.faculty(["AIML_KB", "AML_SJ", "AIML_", "KB"], context)
+        self.assertEqual([item.faculty_id for item in resolved], [11, 12, None, 11])
+        self.assertEqual([item.raw for item in resolved], ["AIML_KB", "AML_SJ", "AIML_", "KB"])
+
     def test_prefixed_initial_remains_unresolved_when_department_tie_remains(self):
         context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
             FacultyRecord(id=41, name="Sanjay Ghosh", department="AIML"),
