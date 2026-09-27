@@ -112,6 +112,25 @@ class VisualWorkbookTest(unittest.TestCase):
         finally:
             workbook.close()
 
+    def test_visible_page_heading_and_period_header_survive_conversion(self):
+        self.assertIn("ENTIRE page", TRANSCRIPTION_PROMPT)
+        self.assertIn("period number or name", TRANSCRIPTION_PROMPT)
+        transcription = VisualWorkbook(sheets=[VisualSheet(cells=[
+            VisualCell(row=1, column=1, text="Visible college heading", column_span=3),
+            VisualCell(row=2, column=1, text="Section A"),
+            VisualCell(row=3, column=2, text="1\n9:20 - 10:10"),
+            VisualCell(row=4, column=1, text="Mo"),
+            VisualCell(row=4, column=2, text="DSA"),
+        ])])
+        workbook = load_workbook(BytesIO(build_workbook(transcription, Settings())))
+        try:
+            sheet = workbook.active
+            self.assertEqual(sheet["A1"].value, "Visible college heading")
+            self.assertEqual(sheet["B3"].value, "1\n9:20 - 10:10")
+            self.assertEqual(sheet["B4"].value, "DSA")
+        finally:
+            workbook.close()
+
     def test_overlapping_transcribed_cells_are_rejected(self):
         transcription = VisualWorkbook(sheets=[VisualSheet(cells=[
             VisualCell(row=1, column=1, text="A", column_span=2),

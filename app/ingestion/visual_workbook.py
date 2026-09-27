@@ -24,10 +24,23 @@ visual row/column order and only mark a span when the source visibly shows a
 merged cell. Do not turn one merged cell into repeated values. Separate
 visually independent timetable tables into separate sheets. Do not add sheet
 titles, column labels, or Department headings that are absent in the source.
-Include visible headings attached to each timetable, even when they appear
-above the grid. Ignore signatures, stamps, and approval marks outside the
-timetable. Preserve handwritten text inside a timetable cell when readable;
-do not silently replace or complete an unclear printed entry.
+Examine the ENTIRE page for each table, not just the class/activity grid.
+Read sideways or rotated pages in their upright reading orientation. Include
+all legible timetable-related text around the grid in that table's sheet:
+the institution/college heading, timetable title, printed or handwritten
+version/date, course/department/year/semester/section/room labels, and any
+visible table captions or explanatory notes. Put headings above the grid in
+preceding worksheet rows, in their visual order; keep side headings beside
+the grid. Transcribe the COMPLETE header row of the grid, including a day
+heading if present and EVERY visible period number or name and its printed
+start/end time, in the same columns as the corresponding activities. Keep
+numbers and times as the source prints them; do not calculate missing ones.
+Only copy a heading into multiple sheets when the source visibly repeats it
+or clearly shows it applying to each table. If a heading, title, or period
+label is absent or unreadable, omit that cell instead of creating it.
+Ignore signatures, stamps, and approval marks outside the timetable.
+Preserve handwritten timetable text when readable; do not silently replace
+or complete an unclear printed entry.
 
 Examples of forbidden changes: do not turn "2nd yr" into "B.Tech"; do not
 expand "AB" into a teacher name; do not invent period 5 between visible
@@ -46,7 +59,8 @@ Return only JSON in this shape:
   ]
 }
 
-Rows and columns are 1-based positions within each visual table. A merged
+Rows and columns are 1-based positions within each worksheet, including its
+headings and period/time header row. A merged
 cell appears once at its top-left coordinate with its visible row_span and
 column_span. Include headings in cells only when they are visibly present.
 If a page contains no timetable table, do not create a sheet for it.
