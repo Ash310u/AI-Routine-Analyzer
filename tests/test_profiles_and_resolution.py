@@ -94,6 +94,50 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual([item.semester for item in result.routines], ["3", "1"])
         self.assertEqual([item.slots[0].activities[0].subject.raw for item in result.routines], ["DSA", "DSA"])
 
+    def test_one_nsec_llm_response_resolves_faculty_by_each_routine_department(self):
+        model = FakeModel({"routines": [
+            {"department": department, "section": f"{department}.2A", "slots": [{
+                "day": "Monday", "start_time": "10:00", "end_time": "11:00",
+                "slot_type": "class", "activities": [
+                    {"subject_raw": "Class", "faculty_raw": ["DB", f"{department}_DB12"]},
+                ],
+            }]}
+            for department in ("CSE", "ECE")
+        ]})
+        employees = _faculty([
+            {"EmployeeId": 41, "EmployeeName": "Debashis Bose", "Stream": "ECE", "Department": "Academics", "Abbreviation": "DB"},
+            {"EmployeeId": 42, "EmployeeName": "Dipak Banerjee", "Stream": "CSE", "Department": "Academics", "Abbreviation": "DB"},
+            {"EmployeeId": 43, "EmployeeName": "Dinesh Chandra", "Stream": "CSE", "Department": "Academics", "Abbreviation": "DB12"},
+            {"EmployeeId": 44, "EmployeeName": "Eshan Chandra", "Stream": "ECE", "Department": "Academics", "Abbreviation": "DB12"},
+        ])
+
+        class FakeMaster:
+            calls = 0
+
+            async def load(self, routine, college_id):
+                self.calls += 1
+                return RoutineContext(subjects=[], faculty=employees, groups=[], sections=[], college_id=college_id)
+
+        master = FakeMaster()
+        settings = Settings(openai_api_key="test", llm_model="test")
+        with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+            "app.llm.extractor.ChatOpenAI", return_value=model,
+        ):
+            result = asyncio.run(process_routine(b"pdf", settings, master, 1))
+
+        self.assertEqual(master.calls, 1)
+        self.assertIsNotNone(model.messages)
+        self.assertEqual(result.routine_count, 2)
+        self.assertEqual([routine.department for routine in result.routines], ["CSE", "ECE"])
+        self.assertEqual([
+            [person.faculty_id for person in routine.slots[0].activities[0].faculty]
+            for routine in result.routines
+        ], [[42, 43], [41, 44]])
+        self.assertEqual([
+            [person.raw for person in routine.slots[0].activities[0].faculty]
+            for routine in result.routines
+        ], [["DB", "CSE_DB12"], ["DB", "ECE_DB12"]])
+
     def test_nsec_single_table_returns_routines_array_with_complete_slot(self):
         extracted = RoutineExtraction.model_validate({
             "course": "B.Tech", "department": "AIML", "year": "2", "semester": "3",
