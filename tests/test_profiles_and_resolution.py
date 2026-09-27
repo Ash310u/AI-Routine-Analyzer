@@ -273,6 +273,29 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         ])
         self.assertEqual(resolve.faculty(["SC"], context)[0].faculty_id, 41)
 
+    def test_numbered_initials_and_department_ties_across_routines(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], faculty=_faculty([
+            {"EmployeeId": 41, "EmployeeName": "Debashis Bose", "Stream": "ECE", "Department": "Academics", "Abbreviation": "DB"},
+            {"EmployeeId": 42, "EmployeeName": "Dipak Banerjee", "Stream": "CSE", "Department": "Academics", "Abbreviation": "DB"},
+            {"EmployeeId": 43, "EmployeeName": "Dinesh Chandra", "Stream": "CSE", "Department": "Academics", "Abbreviation": "DB12"},
+        ]))
+        caches = ({}, {}, {})
+
+        def routine(department, raw):
+            return RoutineExtraction.model_validate({"department": department, "slots": [{
+                "day": "Monday", "start_time": "10:00", "end_time": "11:00", "slot_type": "class",
+                "activities": [{"subject_raw": "Class", "faculty_raw": [raw]}],
+            }]})
+
+        cse = _enrich(routine("CSE", "DB"), context, caches)
+        ece = _enrich(routine("ECE", "DB"), context, caches)
+        numbered = _enrich(routine("CSE", "CSE_DB12"), context, caches)
+        self.assertEqual(cse.slots[0].activities[0].faculty[0].faculty_id, 42)
+        self.assertEqual(ece.slots[0].activities[0].faculty[0].faculty_id, 41)
+        self.assertEqual(numbered.slots[0].activities[0].faculty[0].faculty_id, 43)
+        self.assertEqual(_activity("Class (DB12)", "Sheet", 1, 1).faculty_raw, ["DB12"])
+        self.assertIsNone(resolve.faculty(["DB13"], context)[0].faculty_id)
+
     def test_employee_stream_sets_faculty_scope(self):
         faculty = _faculty([{
             "EmployeeId": 7, "EmployeeName": "Somnath Chatterjee",

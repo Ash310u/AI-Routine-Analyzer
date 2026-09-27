@@ -232,7 +232,7 @@ def _activity(raw: str, sheet: str, row: int, column: int) -> ActivityExtraction
     subject = raw
     for match in INITIALS.finditer(raw.upper()):
         tokens = re.split(r"[+/&,\s]+", match.group(1).strip())
-        if tokens and all(re.fullmatch(r"[A-Z]{2,5}\d?", token) for token in tokens) and not any(
+        if tokens and all(re.fullmatch(r"[A-Z]{2,5}\d*", token) for token in tokens) and not any(
             token in {"LAB", "ROOM", "CLASS", "SEC"} for token in tokens
         ):
             faculty.extend(tokens)
