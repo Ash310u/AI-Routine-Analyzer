@@ -45,7 +45,7 @@ class TintWorkbookTest(unittest.TestCase):
     def test_upload_returns_and_saves_all_routines_without_llm(self):
         master = FakeMaster()
         with tempfile.TemporaryDirectory() as directory:
-            settings = Settings(output_dir=directory)
+            settings = Settings(output_dir=directory, subject_embedding_backend="off")
             app.state.master_api = master
             with patch("app.main.Settings", return_value=settings), patch(
                 "app.services.routine_processor.RoutineExtractor.extract",

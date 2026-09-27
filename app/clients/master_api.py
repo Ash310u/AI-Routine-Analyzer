@@ -47,7 +47,7 @@ def _field(row: dict, *names: str, required: bool = False):
 def _subjects(payload: Any) -> list[SubjectRecord]:
     result = []
     for row in _rows(payload, "Subject"):
-        aliases = _field(row, "aliases", "alias") or []
+        aliases = _field(row, "aliases", "Aliases", "alias", "Alias") or []
         if isinstance(aliases, str):
             aliases = [aliases]
         result.append(SubjectRecord.model_validate({

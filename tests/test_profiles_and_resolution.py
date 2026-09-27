@@ -97,7 +97,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         ), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=extracted,
         ):
-            result = asyncio.run(process_routine(b"pdf", Settings(), master, 1))
+            result = asyncio.run(process_routine(b"pdf", Settings(subject_embedding_backend="off"), master, 1))
         self.assertEqual(master.college_id, 1)
         self.assertEqual(result.source_type, "document")
         self.assertEqual(result.college_id, 1)
@@ -140,7 +140,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
                 return RoutineContext(subjects=[], faculty=employees, groups=[], sections=[], college_id=college_id)
 
         master = FakeMaster()
-        settings = Settings(openai_api_key="test", llm_model="test")
+        settings = Settings(openai_api_key="test", llm_model="test", subject_embedding_backend="off")
         with tempfile.TemporaryDirectory() as directory:
             settings = settings.model_copy(update={"output_dir": directory})
             with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
@@ -190,7 +190,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         ), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted],
         ):
-            result = asyncio.run(process_routine(b"pdf", Settings(), FakeMaster(), 1))
+            result = asyncio.run(process_routine(b"pdf", Settings(subject_embedding_backend="off"), FakeMaster(), 1))
         payload = result.model_dump(mode="json")
         self.assertEqual((payload["source_type"], payload["routine_count"], len(payload["routines"])),
                          ("document", 1, 1))
@@ -230,7 +230,8 @@ class ProfilesAndResolutionTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             app.state.master_api = FakeMaster()
-            with patch("app.main.Settings", return_value=Settings(output_dir=directory)), patch(
+            with patch("app.main.Settings", return_value=Settings(output_dir=directory,
+                                                                  subject_embedding_backend="off")), patch(
                 "app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="],
             ), patch("app.services.routine_processor.VisualWorkbookExtractor.extract", return_value=visible_table()), patch(
                 "app.services.routine_processor.keep_visible_values", return_value=([extracted], []),
@@ -275,7 +276,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
             "app.services.routine_processor.RoutineExtractor",
         ) as extractor_type:
             extractor_type.return_value.extract = AsyncMock(return_value=[extracted])
-            result = asyncio.run(process_routine(b"workbook", Settings(), FakeMaster(), 2))
+            result = asyncio.run(process_routine(b"workbook", Settings(subject_embedding_backend="off"), FakeMaster(), 2))
 
         self.assertEqual(extractor_type.call_args.args[1].name, "generic")
         self.assertEqual(result.source_type, "workbook")
@@ -467,6 +468,17 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         context.department = "Dept of CSE"
         context.semester = "3rd Semester"
         self.assertEqual(resolve.subject("PCC-CS301", "PCC-CS301", context).subject_master_id, 927)
+
+    def test_section_scopes_generated_subject_acronym_and_lab_category(self):
+        context = RoutineContext(subjects=[
+            SubjectRecord(id=736, name="Object Oriented Programming", stream="AIML", category="Theory"),
+            SubjectRecord(id=743, name="Object Oriented Programming", stream="AIML", category="Lab"),
+            SubjectRecord(id=900, name="Object Oriented Programming", stream="CSE", category="Lab"),
+        ], faculty=[], groups=[], sections=[], section="AIML.3A")
+        matched = resolve.subject("OOP Lab", None, context)
+        self.assertEqual(matched.subject_master_id, 743)
+        self.assertEqual(matched.match_method, "acronym")
+        self.assertIsNone(resolve.subject("OOP", None, context).subject_master_id)
 
     def test_master_cache_is_scoped_by_college_id(self):
         settings = Settings(subject_api_base_url="https://example.test/subjects",

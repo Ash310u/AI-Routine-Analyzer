@@ -86,12 +86,15 @@ def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple
         for activity in slot.activities:
             group_key_raw = (extracted.section, activity.group_raw)
             subject_key = (extracted.department, extracted.course, extracted.semester,
-                           activity.subject_raw, activity.subject_code_raw)
+                           extracted.section, activity.subject_raw, activity.subject_code_raw,
+                           activity.subject_type_raw)
             faculty_key = (resolve.faculty_department(context), tuple(activity.faculty_raw))
             if group_key_raw not in group_cache:
                 group_cache[group_key_raw] = resolve.group(activity.group_raw, context)
             if subject_key not in subject_cache:
-                subject_cache[subject_key] = resolve.subject(activity.subject_raw, activity.subject_code_raw, context)
+                subject_cache[subject_key] = resolve.subject(
+                    activity.subject_raw, activity.subject_code_raw, context, activity.subject_type_raw,
+                )
             if faculty_key not in faculty_cache:
                 faculty_cache[faculty_key] = resolve.faculty(activity.faculty_raw, context)
             resolved_group = group_cache[group_key_raw]
@@ -100,6 +103,8 @@ def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple
             reasons = []
             if resolved_subject.subject_master_id is None:
                 reasons.append("Subject could not be uniquely resolved")
+            elif resolved_subject.match_method == "acronym":
+                reasons.append("Subject matched by generated acronym; verify the suggested ID")
             elif resolved_subject.match_method == "embedding":
                 reasons.append("Subject matched semantically; verify the suggested ID")
             if resolved_group is not None and resolved_group.group_id is None:

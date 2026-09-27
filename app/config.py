@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -15,6 +17,11 @@ class Settings(BaseSettings):
     subject_embedding_base_url: str = ""
     subject_embedding_min_similarity: float = Field(default=0.88, ge=0, le=1)
     subject_embedding_min_margin: float = Field(default=0.08, ge=0, le=1)
+    subject_embedding_backend: Literal["local", "remote", "off"] = "local"
+    subject_local_embedding_model: str = "BAAI/bge-small-en-v1.5"
+    subject_local_embedding_cache_dir: str = ".cache/subject-embeddings"
+    subject_local_embedding_min_similarity: float = Field(default=0.62, ge=0, le=1)
+    subject_local_embedding_min_margin: float = Field(default=0.06, ge=0, le=1)
     subject_api_base_url: str = ""
     faculty_api_base_url: str = ""
     group_api_base_url: str = ""

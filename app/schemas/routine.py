@@ -23,7 +23,7 @@ class ResolvedSubject(BaseModel):
     code: str | None = None
     name: str | None = None
     category: str | None = None
-    match_method: Literal["code", "alias", "exact_name", "fuzzy", "embedding", "unresolved", "ambiguous"]
+    match_method: Literal["code", "alias", "exact_name", "acronym", "fuzzy", "embedding", "unresolved", "ambiguous"]
 
 
 class ResolvedFaculty(BaseModel):

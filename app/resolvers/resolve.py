@@ -78,7 +78,8 @@ def _faculty_identifiers(item) -> set[str]:
     return identifiers
 
 
-def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> ResolvedSubject:
+def subject(raw: str | None, code_raw: str | None, context: RoutineContext,
+            subject_type_raw: str | None = None) -> ResolvedSubject:
     def output(item=None, method="unresolved"):
         return ResolvedSubject(
             raw=raw, code_raw=code_raw,
@@ -97,6 +98,7 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
         if len(matches) > 1:
             return output(method="ambiguous")
     if raw:
+        scoped = scoped_subjects(context, raw, subject_type_raw)
         for field, method in (("aliases", "alias"), ("name", "exact_name")):
             matches = [item for item in scoped if (
                 normalize(item.name) == normalize(raw) if field == "name"
@@ -106,6 +108,11 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
                 return output(matches[0], method)
             if len(matches) > 1:
                 return output(method="ambiguous")
+        matches = [item for item in scoped if normalize(raw) in _subject_acronyms(item)]
+        if len(matches) == 1:
+            return output(matches[0], "acronym")
+        if len(matches) > 1:
+            return output(method="ambiguous")
         # Accept only a clearly unique, near-identical spelling; semantic matching
         # needs a configured embedding index and must never guess an ID.
         scored = sorted(((SequenceMatcher(None, normalize(raw), normalize(item.name)).ratio(), item)
@@ -115,8 +122,35 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
     return output()
 
 
-def scoped_subjects(context: RoutineContext):
-    return [item for item in context.subjects
-            if (not context.department or not item.stream or normalize_department(context.department) == normalize_department(item.stream))
+def _subject_acronyms(item) -> set[str]:
+    words = re.findall(r"[A-Za-z]+", item.name)
+    words = [word for word in words if word.casefold() not in {"and", "of", "the", "with", "for"}]
+    is_lab = bool(item.category and re.search(r"\b(?:lab|laboratory|practical)\b", item.category, re.I))
+    subject_words = [word for word in words if word.casefold() not in {"lab", "laboratory"}]
+    if len(subject_words) < 2:
+        return set()
+    initialism = "".join(word[0] for word in subject_words)
+    forms = {normalize(initialism)}
+    if is_lab:
+        forms.add(normalize(initialism + " Lab"))
+    return forms
+
+
+def scoped_subjects(context: RoutineContext, raw: str | None = None,
+                    subject_type_raw: str | None = None):
+    department = context.department
+    if not department:
+        match = SECTION_DEPARTMENT.match(context.section or "")
+        if match and any(item.stream and normalize_department(item.stream) == normalize_department(match.group(1))
+                         for item in context.subjects):
+            department = match.group(1)
+    candidates = [item for item in context.subjects
+            if (not department or not item.stream or normalize_department(department) == normalize_department(item.stream))
             and (not context.course or not item.course or normalize(context.course) == normalize(item.course))
             and (not context.semester or not item.semester or normalize_semester(context.semester) == normalize_semester(item.semester))]
+    if re.search(r"\b(?:lab|laboratory|practical)\b", f"{raw or ''} {subject_type_raw or ''}", re.I):
+        labs = [item for item in candidates if item.category and
+                re.search(r"\b(?:lab|laboratory|practical)\b", item.category, re.I)]
+        if labs:
+            return labs
+    return candidates

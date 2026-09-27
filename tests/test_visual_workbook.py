@@ -13,6 +13,7 @@ import httpx
 from openpyxl import load_workbook
 
 from app.config import Settings
+from app.clients.master_api import MasterAPI
 from app.ingestion.visual_workbook import (
     TRANSCRIPTION_PROMPT, VisualCell, VisualSheet, VisualWorkbook, build_workbook,
 )
@@ -20,6 +21,7 @@ from app.ingestion.workbook_evidence import keep_visible_values
 from app.llm.extractor import ExtractionError
 from app.main import app
 from app.resolvers.subject_embeddings import embedding_subject_matches
+from app.resolvers import subject_embeddings
 from app.schemas.context import RoutineContext, SubjectRecord
 from app.schemas.extraction import RoutineExtraction
 from app.services.routine_processor import process_routine
@@ -66,7 +68,8 @@ class VisualWorkbookTest(unittest.TestCase):
         model = FakeModel()
         with tempfile.TemporaryDirectory() as directory:
             app.state.master_api = EmptyMaster()
-            with patch("app.main.Settings", return_value=Settings(output_dir=directory, openai_api_key="test")), patch(
+            with patch("app.main.Settings", return_value=Settings(output_dir=directory, openai_api_key="test",
+                                                                  subject_embedding_backend="off")), patch(
                 "app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="],
             ), patch("app.llm.extractor.ChatOpenAI", return_value=model):
                 async def request():
@@ -204,7 +207,7 @@ class VisualWorkbookTest(unittest.TestCase):
     def test_embedding_fallback_batches_and_requires_clear_winner(self):
         routines = [RoutineExtraction.model_validate({
             "department": "CSE", "slots": [{"activities": [
-                {"subject_raw": "DSA"}, {"subject_raw": "DSA"},
+                {"subject_raw": "Graph Algorithms"}, {"subject_raw": "Graph Algorithms"},
             ]}],
         })]
         context = RoutineContext(subjects=[
@@ -214,19 +217,22 @@ class VisualWorkbookTest(unittest.TestCase):
         ], faculty=[], groups=[], sections=[])
         model = FakeEmbeddings({
             "Data Structures and Algorithms": [1.0, 0.0],
-            "Digital Systems": [0.0, 1.0], "DSA": [0.99, 0.01],
+            "Digital Systems": [0.0, 1.0], "DSA": [0.0, 1.0],
+            "Graph Algorithms": [0.99, 0.01],
         })
         result = asyncio.run(embedding_subject_matches(
             routines, context, Settings(subject_embedding_model="test"), model,
         ))
         self.assertEqual(len(model.calls), 1)
-        self.assertEqual(model.calls[0], ["Data Structures and Algorithms", "Digital Systems", "DSA"])
+        self.assertEqual(model.calls[0], ["Data Structures and Algorithms", "Digital Systems", "DSA",
+                                          "Graph Algorithms"])
         self.assertEqual(next(iter(result.values())).subject_master_id, 1)
         self.assertEqual(next(iter(result.values())).match_method, "embedding")
 
         close_model = FakeEmbeddings({
             "Data Structures and Algorithms": [1.0, 0.0],
-            "Digital Systems": [0.99, 0.01], "DSA": [1.0, 0.0],
+            "Digital Systems": [0.99, 0.01], "DSA": [0.0, 1.0],
+            "Graph Algorithms": [1.0, 0.0],
         })
         ambiguous = asyncio.run(embedding_subject_matches(
             routines, context, Settings(subject_embedding_model="test"), close_model,
@@ -237,7 +243,7 @@ class VisualWorkbookTest(unittest.TestCase):
         routine = RoutineExtraction.model_validate({
             "department": "CSE", "slots": [{
                 "day": "Monday", "slot_type": "class",
-                "activities": [{"subject_raw": "DSA"}],
+                "activities": [{"subject_raw": "Graph Algorithms"}],
             }],
         })
 
@@ -247,8 +253,10 @@ class VisualWorkbookTest(unittest.TestCase):
                     SubjectRecord(id=8, name="Data Structures and Algorithms", stream="CSE"),
                 ], faculty=[], groups=[], sections=[], college_id=college_id)
 
-        model = FakeEmbeddings({"Data Structures and Algorithms": [1.0, 0.0], "DSA": [1.0, 0.0]})
-        settings = Settings(subject_embedding_model="test", subject_embedding_api_key="test")
+        model = FakeEmbeddings({"Data Structures and Algorithms": [1.0, 0.0],
+                                "Graph Algorithms": [1.0, 0.0]})
+        settings = Settings(subject_embedding_backend="remote", subject_embedding_model="test",
+                            subject_embedding_api_key="test")
         with patch("app.services.routine_processor.is_excel_workbook", return_value=True), patch(
             "app.services.routine_processor.TINTProfile.extract", return_value=[routine],
         ), patch("app.resolvers.subject_embeddings.OpenAIEmbeddings", return_value=model):
@@ -258,6 +266,102 @@ class VisualWorkbookTest(unittest.TestCase):
         self.assertEqual(activity.subject.match_method, "embedding")
         self.assertTrue(activity.requires_review)
         self.assertIn("Subject matched semantically", activity.review_reasons[0])
+
+    def test_local_index_uses_only_requested_college_catalog_and_reuses_vectors(self):
+        routine = RoutineExtraction.model_validate({"section": "AIML.3A", "slots": [{
+            "activities": [{"subject_raw": "Neural Computation"}],
+        }]})
+        first = RoutineContext(subjects=[SubjectRecord(
+            id=11, name="Machine Intelligence", stream="AIML",
+        )], faculty=[], groups=[], sections=[], college_id=1)
+        second = RoutineContext(subjects=[SubjectRecord(
+            id=22, name="Neural Systems", stream="AIML",
+        )], faculty=[], groups=[], sections=[], college_id=2)
+        model = FakeEmbeddings({"Machine Intelligence": [1.0, 0.0],
+                                "Neural Systems": [0.0, 1.0],
+                                "Neural Computation": [1.0, 0.0]})
+        settings = Settings(subject_embedding_backend="local",
+                            subject_local_embedding_min_similarity=0.5)
+        subject_embeddings._catalog_cache.clear()
+        try:
+            with patch("app.resolvers.subject_embeddings._LocalEmbeddings", return_value=model):
+                first_result = asyncio.run(embedding_subject_matches([routine], first, settings))
+                second_result = asyncio.run(embedding_subject_matches([routine], second, settings))
+                repeated = asyncio.run(embedding_subject_matches([routine], first, settings))
+            self.assertEqual(next(iter(first_result.values())).subject_master_id, 11)
+            self.assertEqual(second_result, {})
+            self.assertEqual(next(iter(repeated.values())).subject_master_id, 11)
+            self.assertEqual(model.calls[0], ["Machine Intelligence", "Neural Computation"])
+            self.assertEqual(model.calls[1], ["Neural Systems", "Neural Computation"])
+            self.assertEqual(model.calls[2], ["Neural Computation"])
+        finally:
+            subject_embeddings._catalog_cache.clear()
+
+    def test_local_fallback_searches_api_aliases_after_text_matching(self):
+        routine = RoutineExtraction.model_validate({"department": "AIML", "slots": [{
+            "activities": [{"subject_raw": "Visual Data Systems"}],
+        }]})
+        context = RoutineContext(subjects=[SubjectRecord(
+            id=71, name="Information Processing", aliases=["Data Visualisation"], stream="AIML",
+        )], faculty=[], groups=[], sections=[], college_id=1)
+        model = FakeEmbeddings({"Information Processing": [0.0, 1.0],
+                                "Data Visualisation": [1.0, 0.0],
+                                "Visual Data Systems": [1.0, 0.0]})
+        settings = Settings(subject_embedding_backend="local")
+        subject_embeddings._catalog_cache.clear()
+        try:
+            with patch("app.resolvers.subject_embeddings._LocalEmbeddings", return_value=model):
+                result = asyncio.run(embedding_subject_matches([routine], context, settings))
+            self.assertEqual(next(iter(result.values())).subject_master_id, 71)
+            self.assertEqual(model.calls[0], ["Information Processing", "Data Visualisation",
+                                              "Visual Data Systems"])
+        finally:
+            subject_embeddings._catalog_cache.clear()
+
+    def test_processor_fetches_and_searches_only_uploaded_college_subjects(self):
+        routine = RoutineExtraction.model_validate({"department": "AIML", "slots": [{
+            "day": "Monday", "slot_type": "class",
+            "activities": [{"subject_raw": "Neural Computation"}],
+        }]})
+        calls = []
+
+        def respond(request):
+            calls.append(str(request.url))
+            college_id = int(request.url.params["college_id"])
+            if request.url.path == "/subjects":
+                return httpx.Response(200, json=[{
+                    "SubjectMasterId": college_id, "Name": f"Neural Systems {college_id}",
+                    "Stream": "AIML",
+                }])
+            return httpx.Response(200, json=[])
+
+        settings = Settings(subject_api_base_url="https://example.test/subjects",
+                            faculty_api_base_url="https://example.test/employees",
+                            subject_embedding_backend="local")
+        master = MasterAPI(settings)
+        master.client = httpx.AsyncClient(transport=httpx.MockTransport(respond))
+        model = FakeEmbeddings({"Neural Systems 1": [1.0, 0.0],
+                                "Neural Systems 2": [1.0, 0.0],
+                                "Neural Computation": [1.0, 0.0]})
+
+        async def check():
+            try:
+                with patch("app.services.routine_processor.is_excel_workbook", return_value=True), patch(
+                    "app.services.routine_processor.TINTProfile.extract", return_value=[routine],
+                ), patch("app.resolvers.subject_embeddings._LocalEmbeddings", return_value=model):
+                    first = await process_routine(b"workbook", settings, master, 1)
+                    second = await process_routine(b"workbook", settings, master, 2)
+                self.assertEqual(first.routines[0].slots[0].activities[0].subject.subject_master_id, 1)
+                self.assertEqual(second.routines[0].slots[0].activities[0].subject.subject_master_id, 2)
+                self.assertEqual({int(httpx.URL(url).params["college_id"]) for url in calls}, {1, 2})
+            finally:
+                await master.aclose()
+
+        subject_embeddings._catalog_cache.clear()
+        try:
+            asyncio.run(check())
+        finally:
+            subject_embeddings._catalog_cache.clear()
 
 
 if __name__ == "__main__":
