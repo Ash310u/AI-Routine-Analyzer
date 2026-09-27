@@ -7,3 +7,6 @@ __pycache__/
 dist/
 build/
 output/
+review-ui/node_modules/
+review-ui/dist/
+*.tsbuildinfo

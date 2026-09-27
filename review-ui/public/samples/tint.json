@@ -1,0 +1,1391 @@
+{
+  "college_id": 2,
+  "source_type": "workbook",
+  "routine_count": 3,
+  "routines": [
+    {
+      "college_id": 2,
+      "college": "TECHNO INTERNATIONAL NEW TOWN",
+      "course": null,
+      "department": "CSE",
+      "year": "2nd",
+      "semester": "3rd",
+      "section": {
+        "raw": "1",
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "305",
+      "routine_version": null,
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "09:30:00",
+          "end_time": "10:25:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "PCC-CS301",
+                "code_raw": "PCC-CS301",
+                "subject_master_id": 927,
+                "code": "PCCCS301",
+                "name": "Data Structure & Algorithms",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "MB2",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!B4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "10:25:00",
+          "end_time": "11:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "BSC-301",
+                "code_raw": "BSC-301",
+                "subject_master_id": 929,
+                "code": "BSC301",
+                "name": "Mathematics-III",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!C4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "11:20:00",
+          "end_time": "12:15:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "ESC-301",
+                "code_raw": "ESC-301",
+                "subject_master_id": 926,
+                "code": "ESC301",
+                "name": "Analog and Digital Electronics",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "AI",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!D4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "12:15:00",
+          "end_time": "13:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "PCC-CS302",
+                "code_raw": "PCC-CS302",
+                "subject_master_id": 928,
+                "code": "PCCCS302",
+                "name": "Computer Organisation",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "TD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!E4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "13:10:00",
+          "end_time": "13:40:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "13:40:00",
+          "end_time": "15:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": {
+                "raw": "Gr-A",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "ESC-391 Analog and digital lab",
+                "code_raw": "ESC-391",
+                "subject_master_id": 931,
+                "code": "ESC391",
+                "name": "Analog and Digital Electronics",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "R-318",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!G4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            },
+            {
+              "group": {
+                "raw": "Gr-B",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS392",
+                "code_raw": "PCC-CS392",
+                "subject_master_id": 933,
+                "code": "PCCCS392",
+                "name": "Computer Organisation",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "TD",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "SC",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "H/W Lab",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!G4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "15:20:00",
+          "end_time": "17:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": {
+                "raw": "Gr-B",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "ESC-391 Analog and digital lab",
+                "code_raw": "ESC-391",
+                "subject_master_id": 931,
+                "code": "ESC391",
+                "name": "Analog and Digital Electronics",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "R-318",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!I4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            },
+            {
+              "group": {
+                "raw": "Gr-A",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS392",
+                "code_raw": "PCC-CS392",
+                "subject_master_id": 933,
+                "code": "PCCCS392",
+                "name": "Computer Organisation",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "TD",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "SC",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "H/W Lab",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!I4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "17:00:00",
+          "end_time": "17:30:00",
+          "slot_type": "other",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Extended Research Hours and College Activity",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!K4",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "09:30:00",
+          "end_time": "10:25:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "RC-CSE-301",
+                "code_raw": "RC-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!B5",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "10:25:00",
+          "end_time": "11:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "RC-CSE-301",
+                "code_raw": "RC-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "305",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!C5",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    },
+    {
+      "college_id": 2,
+      "college": "TECHNO INTERNATIONAL NEW TOWN",
+      "course": null,
+      "department": "CSE",
+      "year": "2nd",
+      "semester": "3rd",
+      "section": {
+        "raw": "2",
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "304",
+      "routine_version": null,
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "09:30:00",
+          "end_time": "13:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": {
+                "raw": "Gr-A",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS391",
+                "code_raw": "PCC-CS391",
+                "subject_master_id": 932,
+                "code": "PCCCS391",
+                "name": "Data Structure & Algorithm Lab",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SP",
+                  "faculty_id": 293,
+                  "name": "SWAGATA PAUL"
+                },
+                {
+                  "raw": "RS",
+                  "faculty_id": 442,
+                  "name": "RITUPARNA SAHA"
+                },
+                {
+                  "raw": "NDG",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "Project Lab-1",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!B21",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            },
+            {
+              "group": {
+                "raw": "Gr-B",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS391",
+                "code_raw": "PCC-CS391",
+                "subject_master_id": 932,
+                "code": "PCCCS391",
+                "name": "Data Structure & Algorithm Lab",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": 425,
+                  "name": "AKASH BHATTACHARJEE"
+                },
+                {
+                  "raw": "SS",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "PL-1",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!B21",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "13:10:00",
+          "end_time": "13:40:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "13:40:00",
+          "end_time": "14:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "BSC-301",
+                "code_raw": "BSC-301",
+                "subject_master_id": 929,
+                "code": "BSC301",
+                "name": "Mathematics-III",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "KG",
+                  "faculty_id": 259,
+                  "name": "KAKALI GHOSH"
+                }
+              ],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!G21",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "14:30:00",
+          "end_time": "15:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "ESC-301",
+                "code_raw": "ESC-301",
+                "subject_master_id": 926,
+                "code": "ESC301",
+                "name": "Analog and Digital Electronics",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "VM",
+                  "faculty_id": 332,
+                  "name": "VIVEKANANDA MUKHERJEE"
+                }
+              ],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!H21",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "15:20:00",
+          "end_time": "17:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "HSMC301",
+                "code_raw": "HSMC301",
+                "subject_master_id": 930,
+                "code": "HSMC301",
+                "name": "Economics for Engineers (Humanities-II)",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "DB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!I21",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "17:00:00",
+          "end_time": "17:30:00",
+          "slot_type": "other",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Extended Research Hours and College Activity",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!K21",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "09:30:00",
+          "end_time": "10:25:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "RC-CSE-301",
+                "code_raw": "RC-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!B22",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "10:25:00",
+          "end_time": "11:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "RC-CSE-301",
+                "code_raw": "RC-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!C22",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "11:20:00",
+          "end_time": "12:15:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "RC-CSE-301",
+                "code_raw": "RC-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!D22",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "12:15:00",
+          "end_time": "13:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "RC-CSE-301",
+                "code_raw": "RC-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "304",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!E22",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    },
+    {
+      "college_id": 2,
+      "college": "TECHNO INTERNATIONAL NEW TOWN",
+      "course": null,
+      "department": "CSE",
+      "year": "2nd",
+      "semester": "3rd",
+      "section": {
+        "raw": "3",
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "215",
+      "routine_version": null,
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "09:30:00",
+          "end_time": "10:25:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "PCC-CS302",
+                "code_raw": "PCC-CS302",
+                "subject_master_id": 928,
+                "code": "PCCCS302",
+                "name": "Computer Organisation",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "NDM",
+                  "faculty_id": 317,
+                  "name": "NILAV DARSHAN MUKHOPADHYAY"
+                }
+              ],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!B36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "10:25:00",
+          "end_time": "11:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "BSC-301",
+                "code_raw": "BSC-301",
+                "subject_master_id": 929,
+                "code": "BSC301",
+                "name": "Mathematics-III",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "PD",
+                  "faculty_id": 258,
+                  "name": "PAPIYA DEBNATH"
+                }
+              ],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!C36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "11:20:00",
+          "end_time": "12:15:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "HSMC301",
+                "code_raw": "HSMC301",
+                "subject_master_id": 930,
+                "code": "HSMC301",
+                "name": "Economics for Engineers (Humanities-II)",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "DB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!D36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "12:15:00",
+          "end_time": "13:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "ESC-301",
+                "code_raw": "ESC-301",
+                "subject_master_id": 926,
+                "code": "ESC301",
+                "name": "Analog and Digital Electronics",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SNB",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!E36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "13:10:00",
+          "end_time": "13:40:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "13:40:00",
+          "end_time": "15:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": {
+                "raw": "Gr-B",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS393",
+                "code_raw": "PCC-CS393",
+                "subject_master_id": 934,
+                "code": "PCCCS393",
+                "name": "IT Workshop",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "NDM",
+                  "faculty_id": 317,
+                  "name": "NILAV DARSHAN MUKHOPADHYAY"
+                },
+                {
+                  "raw": "AB",
+                  "faculty_id": 425,
+                  "name": "AKASH BHATTACHARJEE"
+                }
+              ],
+              "room": {
+                "raw": "Project Lab-1",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!G36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            },
+            {
+              "group": {
+                "raw": "Gr-A",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS393",
+                "code_raw": "PCC-CS393",
+                "subject_master_id": 934,
+                "code": "PCCCS393",
+                "name": "IT Workshop",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "MB2",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "DD",
+                  "faculty_id": 436,
+                  "name": "DISHA DUTTA"
+                }
+              ],
+              "room": {
+                "raw": "PL-1",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!G36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "15:20:00",
+          "end_time": "16:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "HSMC301",
+                "code_raw": "HSMC301",
+                "subject_master_id": 930,
+                "code": "HSMC301",
+                "name": "Economics for Engineers (Humanities-II)",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!I36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "16:10:00",
+          "end_time": "17:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "MEN-CSE-301",
+                "code_raw": "MEN-CSE-301",
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!J36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "17:00:00",
+          "end_time": "17:30:00",
+          "slot_type": "other",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Extended Research Hours and College Activity",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "215",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "Source: 2nd year!K36",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "09:30:00",
+          "end_time": "11:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": {
+                "raw": "Gr-A",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "ESC-391 Analog and digital lab",
+                "code_raw": "ESC-391",
+                "subject_master_id": 931,
+                "code": "ESC391",
+                "name": "Analog and Digital Electronics",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "R-318",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!B37",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            },
+            {
+              "group": {
+                "raw": "Gr-B",
+                "group_id": null,
+                "name": null
+              },
+              "subject": {
+                "raw": "PCC-CS392",
+                "code_raw": "PCC-CS392",
+                "subject_master_id": 933,
+                "code": "PCCCS392",
+                "name": "Computer Organisation",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "BM",
+                  "faculty_id": 298,
+                  "name": "BITAN MISRA"
+                },
+                {
+                  "raw": "SC",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "H/W Lab",
+                "room_id": null
+              },
+              "subject_type_raw": "Lab",
+              "notes": "Source: 2nd year!B37",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Group could not be uniquely resolved",
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    }
+  ],
+  "requires_review": true,
+  "output_file": null
+}

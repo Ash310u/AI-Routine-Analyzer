@@ -1,0 +1,1109 @@
+{
+  "college_id": 1,
+  "source_type": "document",
+  "routine_count": 3,
+  "routines": [
+    {
+      "college_id": 1,
+      "college": "Netaji Subhash Engineering College",
+      "course": null,
+      "department": "Dept of AEIE",
+      "year": "2nd yr.",
+      "semester": "3rd Semester",
+      "section": {
+        "raw": null,
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "ROOM A308",
+      "routine_version": "V1",
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "09:20:00",
+          "end_time": "10:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 2,
+          "end_period": 2,
+          "start_time": "10:10:00",
+          "end_time": "11:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mathematics -III",
+                "code_raw": "BS-M301",
+                "subject_master_id": 639,
+                "code": "BSM301",
+                "name": "Mathematics –III",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(BES)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 3,
+          "end_period": 4,
+          "start_time": "11:00:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analog Integrated Circuit",
+                "code_raw": "PC-EI303",
+                "subject_master_id": 642,
+                "code": "PCEI303",
+                "name": "Analog Integrated Circuit",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "ANS",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "13:30:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Electronic Circuits Lab",
+                "code_raw": "PC-EI394",
+                "subject_master_id": 648,
+                "code": "PCEI394",
+                "name": "Digital Circuits Design",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": 119,
+                  "name": "ANIMESH BHATTACHARYA"
+                },
+                {
+                  "raw": "LM",
+                  "faculty_id": 124,
+                  "name": "LIPI MONDAL"
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(ECE)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "09:20:00",
+          "end_time": "10:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analog Integrated Circuit",
+                "code_raw": "PC-EI303",
+                "subject_master_id": 642,
+                "code": "PCEI303",
+                "name": "Analog Integrated Circuit",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "ANS",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 2,
+          "end_period": 4,
+          "start_time": "10:10:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Sensors and Transducers Lab",
+                "code_raw": "PC-EI392",
+                "subject_master_id": 646,
+                "code": "PCEI392",
+                "name": "Sensors and Transducers",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "LM",
+                  "faculty_id": 124,
+                  "name": "LIPI MONDAL"
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "12:40:00",
+          "end_time": "13:30:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 6,
+          "end_period": 6,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Network Analysis",
+                "code_raw": "PC-EI301",
+                "subject_master_id": 640,
+                "code": "PCEI301",
+                "name": "Network Analysis",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": 84,
+                  "name": "MOUJHURI PATRA"
+                }
+              ],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Mathematics -III",
+                "code_raw": "BS-M301",
+                "subject_master_id": 639,
+                "code": "BSM301",
+                "name": "Mathematics –III",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM A308",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(BES)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    },
+    {
+      "college_id": 1,
+      "college": "Netaji Subhash Engineering College",
+      "course": null,
+      "department": "Dept of AEIE",
+      "year": "3rd yr.",
+      "semester": "5th Semester",
+      "section": {
+        "raw": null,
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "SEMINAR ROOM",
+      "routine_version": "V1",
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "OOPL",
+                "code_raw": "OE-EI501",
+                "subject_master_id": 656,
+                "code": "OEEI501",
+                "name": "Object Oriented Programming Language",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": "(CSE)",
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Comm Tech.",
+                "code_raw": "PC-EI502",
+                "subject_master_id": 650,
+                "code": "PCEI502",
+                "name": "Communication Techniques",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": 119,
+                  "name": "ANIMESH BHATTACHARYA"
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Embedded System",
+                "code_raw": "PE-EI503",
+                "subject_master_id": 654,
+                "code": "PEEI503",
+                "name": "Embedded System",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": 118,
+                  "name": "SUMITESH MAJUMDER"
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Seminar",
+                "code_raw": "EI-581",
+                "subject_master_id": 662,
+                "code": "EI581",
+                "name": "Seminar",
+                "category": "Seminar",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 1,
+          "end_period": 3,
+          "start_time": "11:00:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Industrial Instrumentation Lab",
+                "code_raw": "PC-EI592",
+                "subject_master_id": 661,
+                "code": "PCEI592",
+                "name": "Industrial Instrumentation",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": 118,
+                  "name": "SUMITESH MAJUMDER"
+                },
+                {
+                  "raw": "LM",
+                  "faculty_id": 124,
+                  "name": "LIPI MONDAL"
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 5,
+          "end_period": 5,
+          "start_time": "14:20:00",
+          "end_time": "15:10:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Introduction to MEMS",
+                "code_raw": "PE-EI502",
+                "subject_master_id": 653,
+                "code": "PEEI502",
+                "name": "Introduction to MEMS",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 6,
+          "end_period": 8,
+          "start_time": "15:10:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Control System Lab",
+                "code_raw": "PC-EI591",
+                "subject_master_id": 658,
+                "code": "PCEI591",
+                "name": "Control System Lab",
+                "category": "Lab",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                },
+                {
+                  "raw": "PD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Wednesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Embedded System",
+                "code_raw": "PE-EI503",
+                "subject_master_id": 654,
+                "code": "PEEI503",
+                "name": "Embedded System",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": 118,
+                  "name": "SUMITESH MAJUMDER"
+                }
+              ],
+              "room": {
+                "raw": "SEMINAR ROOM",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    },
+    {
+      "college_id": 1,
+      "college": "Netaji Subhash Engineering College",
+      "course": null,
+      "department": "Dept of AEIE",
+      "year": "4th yr.",
+      "semester": "7th Semester",
+      "section": {
+        "raw": null,
+        "section_id": null,
+        "name": null
+      },
+      "default_room": "ROOM 416",
+      "routine_version": "V1",
+      "slots": [
+        {
+          "day": "Monday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Telemetry & wireless Sensor Network",
+                "code_raw": "OE-EI701",
+                "subject_master_id": 667,
+                "code": "OEEI701",
+                "name": "Telemetry & wireless Sensor Network",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SM",
+                  "faculty_id": 118,
+                  "name": "SUMITESH MAJUMDER"
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Digital Control System",
+                "code_raw": "PE-EI702",
+                "subject_master_id": 664,
+                "code": "PEEI702",
+                "name": "Digital Control System",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "PRD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Monday",
+          "start_period": 7,
+          "end_period": 8,
+          "start_time": "16:00:00",
+          "end_time": "17:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 1,
+          "end_period": 1,
+          "start_time": "11:00:00",
+          "end_time": "11:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Remedial",
+                "code_raw": null,
+                "subject_master_id": null,
+                "code": null,
+                "name": null,
+                "category": null,
+                "match_method": "unresolved"
+              },
+              "faculty": [],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Subject could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 2,
+          "end_period": 3,
+          "start_time": "11:50:00",
+          "end_time": "13:30:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Non-Conventional Energy System",
+                "code_raw": "PE-EI702",
+                "subject_master_id": 664,
+                "code": "PEEI702",
+                "name": "Digital Control System",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "MP",
+                  "faculty_id": 84,
+                  "name": "MOUJHURI PATRA"
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 4,
+          "end_period": 4,
+          "start_time": "13:30:00",
+          "end_time": "14:20:00",
+          "slot_type": "break",
+          "activities": [],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 5,
+          "end_period": 6,
+          "start_time": "14:20:00",
+          "end_time": "16:00:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Analytical Instrumentation",
+                "code_raw": "PE-EI703",
+                "subject_master_id": 665,
+                "code": "PEEI703",
+                "name": "Analytical Instrumentation",
+                "category": "Elective Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "SWD",
+                  "faculty_id": null,
+                  "name": null
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Faculty initials could not be uniquely resolved",
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        },
+        {
+          "day": "Tuesday",
+          "start_period": 7,
+          "end_period": 7,
+          "start_time": "16:00:00",
+          "end_time": "16:50:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group": null,
+              "subject": {
+                "raw": "Computer Networks",
+                "code_raw": "ES-CS701",
+                "subject_master_id": 669,
+                "code": "ESCS701",
+                "name": "Computer Networks",
+                "category": "Theory",
+                "match_method": "code"
+              },
+              "faculty": [
+                {
+                  "raw": "AB",
+                  "faculty_id": 119,
+                  "name": "ANIMESH BHATTACHARYA"
+                }
+              ],
+              "room": {
+                "raw": "ROOM 416",
+                "room_id": null
+              },
+              "subject_type_raw": null,
+              "notes": null,
+              "confidence": 0.0,
+              "requires_review": true,
+              "review_reasons": [
+                "Section could not be uniquely resolved"
+              ]
+            }
+          ],
+          "review_reasons": []
+        }
+      ],
+      "requires_review": true,
+      "review_reasons": [
+        "Section could not be uniquely resolved"
+      ],
+      "output_file": null
+    }
+  ],
+  "requires_review": true,
+  "output_file": null
+}
