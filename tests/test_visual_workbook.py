@@ -154,6 +154,16 @@ class VisualWorkbookTest(unittest.TestCase):
         self.assertIsNone(slot.end_time)
         self.assertEqual(len(reasons), 5)
 
+    def test_two_letter_day_labels_in_converted_workbook_are_accepted(self):
+        days = [("Monday", "Mo"), ("Tuesday", "Tu"), ("Wednesday", "We"),
+                ("Thursday", "Th"), ("Friday", "Fr")]
+        routine = RoutineExtraction.model_validate({"slots": [
+            {"day": day, "activities": []} for day, _ in days
+        ]})
+        corrected, reasons = keep_visible_values([routine], [label for _, label in days])
+        self.assertEqual([slot.day for slot in corrected[0].slots], [day for day, _ in days])
+        self.assertEqual(reasons, [])
+
     def test_one_routines_values_cannot_be_justified_by_another_sheet(self):
         routines = [RoutineExtraction.model_validate({
             "department": "CSE", "slots": [{"activities": [{"subject_raw": "DSA"}]}],

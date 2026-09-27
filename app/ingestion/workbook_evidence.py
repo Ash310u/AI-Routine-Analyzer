@@ -12,10 +12,11 @@ ROUTINE_FIELDS = ("college", "course", "department", "year", "semester",
 ACTIVITY_FIELDS = ("group_raw", "subject_raw", "subject_code_raw",
                    "subject_type_raw", "room_raw", "notes")
 DAY_KEYS = {
-    "monday": ("mon", "monday"), "tuesday": ("tue", "tues", "tuesday"),
-    "wednesday": ("wed", "wednesday"), "thursday": ("thu", "thur", "thursday"),
-    "friday": ("fri", "friday"), "saturday": ("sat", "saturday"),
-    "sunday": ("sun", "sunday"),
+    "monday": ("mo", "mon", "monday"), "tuesday": ("tu", "tue", "tues", "tuesday"),
+    "wednesday": ("we", "wed", "wednesday"),
+    "thursday": ("th", "thu", "thur", "thursday"),
+    "friday": ("fr", "fri", "friday"), "saturday": ("sa", "sat", "saturday"),
+    "sunday": ("su", "sun", "sunday"),
 }
 VISIBLE_TIME = re.compile(r"(?<!\d)(\d{1,2})[.:](\d{2})\s*(am|pm)?(?!\d)", re.I)
 
@@ -64,7 +65,10 @@ def keep_visible_values(routines: list[RoutineExtraction], cell_texts: list[str]
             slot_prefix = f"Routine {routine_number}, slot {slot_number}"
             if slot["day"] is not None:
                 day_keys = DAY_KEYS.get(normalize(slot["day"]), ())
-                if not day_keys or not any(any(key in text for key in day_keys) for text in visible):
+                if not day_keys or not any(
+                    text == key or (len(key) > 2 and key in text)
+                    for text in visible for key in day_keys
+                ):
                     slot["day"] = None
                     reasons.append(f"{slot_prefix}: day was not visible in the converted workbook")
             for field in ("start_time", "end_time"):
