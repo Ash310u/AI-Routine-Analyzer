@@ -23,7 +23,7 @@ class ResolvedSubject(BaseModel):
     code: str | None = None
     name: str | None = None
     category: str | None = None
-    match_method: Literal["code", "alias", "exact_name", "fuzzy", "unresolved", "ambiguous"]
+    match_method: Literal["code", "alias", "exact_name", "fuzzy", "embedding", "unresolved", "ambiguous"]
 
 
 class ResolvedFaculty(BaseModel):
@@ -91,4 +91,6 @@ class StandardizedDocument(BaseModel):
     routine_count: int
     routines: list[StandardizedRoutine]
     requires_review: bool
+    conversion_review_reasons: list[str] = Field(default_factory=list)
     output_file: str | None = None
+    converted_workbook_file: str | None = None

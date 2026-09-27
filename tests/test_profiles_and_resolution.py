@@ -16,6 +16,7 @@ from app.llm.extractor import ExtractionError
 from app.llm.extractor import RoutineExtractor
 from app.main import app
 from app.ingestion.spreadsheet_routines import NoRoutineBlocks, _activity
+from app.ingestion.visual_workbook import VisualCell, VisualSheet, VisualWorkbook, build_workbook
 from app.profiles.nsec import NSECProfile
 from app.resolvers import resolve
 from app.schemas.canonical_raw import RoutineExtraction
@@ -26,12 +27,22 @@ from app.services.routine_processor import process_routine
 
 class FakeModel:
     def __init__(self, payload):
-        self.payload = payload
+        self.payloads = payload if isinstance(payload, list) else [payload]
         self.messages = None
+        self.calls = []
 
     async def ainvoke(self, messages):
         self.messages = messages
-        return SimpleNamespace(content=json.dumps(self.payload))
+        self.calls.append(messages)
+        return SimpleNamespace(content=json.dumps(self.payloads.pop(0)))
+
+
+def visible_table():
+    return VisualWorkbook(sheets=[VisualSheet(cells=[
+        VisualCell(row=1, column=1, text="Department: AIML Section: AIML.2A"),
+        VisualCell(row=2, column=1, text="MON"),
+        VisualCell(row=2, column=2, text="DSA Lab AIML_SC", column_span=2),
+    ])])
 
 
 class ProfilesAndResolutionTest(unittest.TestCase):
@@ -80,6 +91,10 @@ class ProfilesAndResolutionTest(unittest.TestCase):
 
         master = FakeMaster()
         with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+            "app.services.routine_processor.VisualWorkbookExtractor.extract", return_value=visible_table(),
+        ), patch(
+            "app.services.routine_processor.keep_visible_values", return_value=(extracted, []),
+        ), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=extracted,
         ):
             result = asyncio.run(process_routine(b"pdf", Settings(), master, 1))
@@ -95,7 +110,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual([item.slots[0].activities[0].subject.raw for item in result.routines], ["DSA", "DSA"])
 
     def test_one_nsec_llm_response_resolves_faculty_by_each_routine_department(self):
-        model = FakeModel({"routines": [
+        parsed = {"routines": [
             {"department": department, "section": f"{department}.2A", "slots": [{
                 "day": "Monday", "start_time": "10:00", "end_time": "11:00",
                 "slot_type": "class", "activities": [
@@ -103,7 +118,13 @@ class ProfilesAndResolutionTest(unittest.TestCase):
                 ],
             }]}
             for department in ("CSE", "ECE")
-        ]})
+        ]}
+        model = FakeModel([{"sheets": [
+            {"cells": [{"row": 1, "column": 1, "text": "Department: CSE Section: CSE.2A"},
+                       {"row": 2, "column": 1, "text": "Class DB CSE_DB12"}]},
+            {"cells": [{"row": 1, "column": 1, "text": "Department: ECE Section: ECE.2A"},
+                       {"row": 2, "column": 1, "text": "Class DB ECE_DB12"}]},
+        ]}, parsed])
         employees = _faculty([
             {"EmployeeId": 41, "EmployeeName": "Debashis Bose", "Stream": "ECE", "Department": "Academics", "Abbreviation": "DB"},
             {"EmployeeId": 42, "EmployeeName": "Dipak Banerjee", "Stream": "CSE", "Department": "Academics", "Abbreviation": "DB"},
@@ -120,10 +141,16 @@ class ProfilesAndResolutionTest(unittest.TestCase):
 
         master = FakeMaster()
         settings = Settings(openai_api_key="test", llm_model="test")
-        with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
-            "app.llm.extractor.ChatOpenAI", return_value=model,
-        ):
-            result = asyncio.run(process_routine(b"pdf", settings, master, 1))
+        with tempfile.TemporaryDirectory() as directory:
+            settings = settings.model_copy(update={"output_dir": directory})
+            with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+                "app.llm.extractor.ChatOpenAI", return_value=model,
+            ):
+                result = asyncio.run(process_routine(b"pdf", settings, master, 1, "nsec.pdf"))
+            self.assertEqual(len(model.calls), 2)
+            workbook = Path(result.converted_workbook_file)
+            self.assertTrue(workbook.is_file())
+            self.assertEqual(workbook.suffix, ".xlsx")
 
         self.assertEqual(master.calls, 1)
         self.assertIsNotNone(model.messages)
@@ -157,6 +184,10 @@ class ProfilesAndResolutionTest(unittest.TestCase):
                 return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
 
         with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+            "app.services.routine_processor.VisualWorkbookExtractor.extract", return_value=visible_table(),
+        ), patch(
+            "app.services.routine_processor.keep_visible_values", return_value=([extracted], []),
+        ), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted],
         ):
             result = asyncio.run(process_routine(b"pdf", Settings(), FakeMaster(), 1))
@@ -201,7 +232,11 @@ class ProfilesAndResolutionTest(unittest.TestCase):
             app.state.master_api = FakeMaster()
             with patch("app.main.Settings", return_value=Settings(output_dir=directory)), patch(
                 "app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="],
-            ), patch("app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted]):
+            ), patch("app.services.routine_processor.VisualWorkbookExtractor.extract", return_value=visible_table()), patch(
+                "app.services.routine_processor.keep_visible_values", return_value=([extracted], []),
+            ), patch(
+                "app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted],
+            ):
                 async def request():
                     transport = httpx.ASGITransport(app=app)
                     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:

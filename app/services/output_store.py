@@ -39,3 +39,26 @@ def save_routine(routine: StandardizedWorkbook | StandardizedDocument, source_na
         Path(temporary).unlink(missing_ok=True)
         raise
     return target
+
+
+def save_converted_workbook(data: bytes, source_name: str | None, settings: Settings) -> Path:
+    """Save a reviewable copy of the exact transcribed Excel cells."""
+    directory = Path(settings.output_dir)
+    if not directory.is_absolute():
+        directory = PROJECT_ROOT / directory
+    directory.mkdir(parents=True, exist_ok=True)
+    source = (source_name or "routine").replace("\\", "/").split("/")[-1]
+    stem = re.sub(r"[^A-Za-z0-9_-]+", "_", Path(source).stem).strip("_")[:80] or "routine"
+    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
+    target = directory / f"{stem}-transcribed-{timestamp}-{uuid4().hex[:8]}.xlsx"
+    descriptor, temporary = tempfile.mkstemp(prefix=".workbook-", suffix=".tmp", dir=directory)
+    try:
+        with os.fdopen(descriptor, "wb") as stream:
+            stream.write(data)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, target)
+    except BaseException:
+        Path(temporary).unlink(missing_ok=True)
+        raise
+    return target

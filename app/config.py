@@ -10,6 +10,11 @@ class Settings(BaseSettings):
     llm_provider: str = "openai"
     llm_base_url: str = "https://api.openai.com/v1"
     llm_model: str = "gpt-5.6-terra"
+    subject_embedding_model: str = ""
+    subject_embedding_api_key: str = ""
+    subject_embedding_base_url: str = ""
+    subject_embedding_min_similarity: float = Field(default=0.88, ge=0, le=1)
+    subject_embedding_min_margin: float = Field(default=0.08, ge=0, le=1)
     subject_api_base_url: str = ""
     faculty_api_base_url: str = ""
     group_api_base_url: str = ""

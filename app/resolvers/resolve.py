@@ -88,10 +88,7 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
             match_method=method,
         )
 
-    scoped = [item for item in context.subjects
-              if (not context.department or not item.stream or normalize_department(context.department) == normalize_department(item.stream))
-              and (not context.course or not item.course or normalize(context.course) == normalize(item.course))
-              and (not context.semester or not item.semester or normalize_semester(context.semester) == normalize_semester(item.semester))]
+    scoped = scoped_subjects(context)
     if code_raw:
         matches = [item for item in scoped if item.code and normalize(item.code) == normalize(code_raw)]
         if len(matches) == 1:
@@ -115,3 +112,10 @@ def subject(raw: str | None, code_raw: str | None, context: RoutineContext) -> R
         if scored and scored[0][0] >= 0.92 and (len(scored) == 1 or scored[0][0] - scored[1][0] >= 0.08):
             return output(scored[0][1], "fuzzy")
     return output()
+
+
+def scoped_subjects(context: RoutineContext):
+    return [item for item in context.subjects
+            if (not context.department or not item.stream or normalize_department(context.department) == normalize_department(item.stream))
+            and (not context.course or not item.course or normalize(context.course) == normalize(item.course))
+            and (not context.semester or not item.semester or normalize_semester(context.semester) == normalize_semester(item.semester))]

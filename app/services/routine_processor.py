@@ -3,21 +3,28 @@ from app.config import Settings
 from app.ingestion.document import DocumentError, image_data_urls
 from app.ingestion.spreadsheet import is_excel_workbook, workbook_text
 from app.ingestion.spreadsheet_routines import NoRoutineBlocks
+from app.ingestion.visual_workbook import VisualWorkbookExtractor, build_workbook
+from app.ingestion.workbook_evidence import keep_visible_values
 from app.llm.extractor import RoutineExtractor
+from app.profiles.converted_workbook import ConvertedWorkbookProfile
 from app.profiles.generic import GenericProfile
-from app.profiles.nsec import NSECProfile
 from app.profiles.tint import TINTProfile
 from app.resolvers import resolve
+from app.resolvers.subject_embeddings import embedding_subject_matches
 from app.schemas.context import RoutineContext
 from app.schemas.extraction import RoutineExtraction
 from app.schemas.routine import (
     ResolvedActivity, ResolvedRoom, ResolvedSlot, StandardizedDocument, StandardizedRoutine, StandardizedWorkbook,
 )
+from app.services.output_store import save_converted_workbook
 
 
 async def process_routine(
     data: bytes, settings: Settings, master_api: MasterAPI, college_id: int,
+    source_name: str | None = None,
 ) -> StandardizedWorkbook | StandardizedDocument:
+    converted_workbook = None
+    conversion_reasons = []
     if is_excel_workbook(data):
         try:
             extracted_routines = [TINTProfile.adapt(raw) for raw in TINTProfile.extract(data, settings)]
@@ -28,18 +35,31 @@ async def process_routine(
         result_type = StandardizedWorkbook
     else:
         pages = image_data_urls(data, settings)
-        extracted_routines = await RoutineExtractor(settings, NSECProfile()).extract(pages, None)
+        parser = RoutineExtractor(settings, ConvertedWorkbookProfile())
+        transcription = await VisualWorkbookExtractor(parser.model).extract(pages)
+        converted_workbook = build_workbook(transcription, settings)
+        extracted_routines = await parser.extract([], workbook_text(converted_workbook, settings))
+        extracted_routines, conversion_reasons = keep_visible_values(
+            extracted_routines,
+            [[cell.text for cell in sheet.cells] for sheet in transcription.sheets],
+        )
         result_type = StandardizedDocument
 
     if not extracted_routines:
         raise DocumentError("No routines found in the uploaded document")
     context = await master_api.load(extracted_routines[0], college_id)
-    caches = ({}, {}, {})
+    embedding_subject_cache = await embedding_subject_matches(extracted_routines, context, settings)
+    caches = (embedding_subject_cache, {}, {})
     routines = [_enrich(item, context, caches) for item in extracted_routines]
-    return result_type(
+    result = result_type(
         college_id=college_id, routine_count=len(routines), routines=routines,
-        requires_review=any(routine.requires_review for routine in routines),
+        requires_review=bool(conversion_reasons or any(routine.requires_review for routine in routines)),
     )
+    if converted_workbook is not None:
+        result.conversion_review_reasons = conversion_reasons
+    if converted_workbook is not None and source_name is not None:
+        result.converted_workbook_file = str(save_converted_workbook(converted_workbook, source_name, settings))
+    return result
 
 
 def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple[dict, dict, dict]) -> StandardizedRoutine:
@@ -80,6 +100,8 @@ def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple
             reasons = []
             if resolved_subject.subject_master_id is None:
                 reasons.append("Subject could not be uniquely resolved")
+            elif resolved_subject.match_method == "embedding":
+                reasons.append("Subject matched semantically; verify the suggested ID")
             if resolved_group is not None and resolved_group.group_id is None:
                 reasons.append("Group could not be uniquely resolved")
             if any(item.faculty_id is None for item in resolved_faculty):
