@@ -55,7 +55,10 @@ RULES
     outside timetable data.
 
 13. Preserve merged-cell structure. A visually merged cell represents one
-    continuous slot unless it clearly contains parallel activities.
+    continuous slot unless it clearly contains parallel activities. Period
+    header columns do not split a class: if the activity has no internal
+    dividing line and covers periods 4–5, return one slot with start_period 4
+    and end_period 5. Do not create a second slot at period 5.
 
 14. Do not create information because it should exist. If the subject is
     unreadable, subject_raw is null. The same applies to room, group, course

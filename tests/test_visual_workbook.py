@@ -107,8 +107,13 @@ class VisualWorkbookTest(unittest.TestCase):
         try:
             sheet = workbook.active
             self.assertEqual(sheet["B2"].value, "=AIML_SC\nDSA Lab")
+            self.assertIsNone(sheet["C2"].value)
             self.assertEqual(sheet["B2"].data_type, "s")
             self.assertEqual({str(area) for area in sheet.merged_cells.ranges}, {"A1:C1", "B2:C2"})
+            self.assertFalse(sheet.sheet_view.showGridLines)
+            self.assertIsNone(sheet["B2"].border.left.style)
+            self.assertIsNone(sheet["B2"].border.right.style)
+            self.assertIsNone(sheet["C2"].border.left.style)
         finally:
             workbook.close()
 

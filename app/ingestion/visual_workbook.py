@@ -4,7 +4,7 @@ import json
 from io import BytesIO
 
 from openpyxl import Workbook, load_workbook
-from openpyxl.styles import Alignment, Border, Side
+from openpyxl.styles import Alignment
 from openpyxl.utils import get_column_letter
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
@@ -20,9 +20,17 @@ calculate times, assign period numbers, supply missing data, or generate any
 faculty, subject, section, or database IDs. Copy only text visibly present.
 Keep punctuation, line breaks, initials, and numbers exactly as shown. If a
 cell is blank or unreadable, omit it; never guess its contents. Preserve the
-visual row/column order and only mark a span when the source visibly shows a
-merged cell. Do not turn one merged cell into repeated values. Separate
-visually independent timetable tables into separate sheets. Do not add sheet
+visual row/column order and preserve the actual boundaries of each activity.
+When one class/lab occupies several period columns with NO divider running
+through its activity area, output ONE cell at the first period with a
+column_span covering all occupied periods. The period-header lines above it
+do not divide that class. Likewise, use row_span for a continuous activity
+across rows. A line divides activities only when it is visibly drawn through
+the activity area; text strokes, handwriting, and period-header ticks are
+not cell borders. Never invent an internal line or split a continuous class
+just because individual period columns exist. Do not repeat its text in
+each covered period. Separate visually independent timetable tables into
+separate sheets. Do not add sheet
 titles, column labels, or Department headings that are absent in the source.
 Examine the ENTIRE page for each table, not just the class/activity grid.
 Read sideways or rotated pages in their upright reading orientation. Include
@@ -125,10 +133,12 @@ def build_workbook(transcription: VisualWorkbook, settings: Settings) -> bytes:
     total_cells = 0
     total_characters = 0
     total_covered = 0
-    edge = Side(style="thin", color="D9E2EC")
     try:
         for sheet_number, source in enumerate(transcription.sheets, start=1):
             sheet = workbook.create_sheet(f"Table {sheet_number}")
+            # Gridlines and synthetic cell borders would introduce dividers
+            # that the visual source never supplied.
+            sheet.sheet_view.showGridLines = False
             occupied: set[tuple[int, int]] = set()
             for item in source.cells:
                 if not item.text.strip():
@@ -153,7 +163,6 @@ def build_workbook(transcription: VisualWorkbook, settings: Settings) -> bytes:
                 cell.value = item.text
                 cell.data_type = "s"  # A literal source value beginning '=' is not a formula.
                 cell.alignment = Alignment(vertical="center", wrap_text=True)
-                cell.border = Border(left=edge, right=edge, top=edge, bottom=edge)
                 existing_height = sheet.row_dimensions[item.row].height or 0
                 sheet.row_dimensions[item.row].height = max(existing_height, 30, 15 * (item.text.count("\n") + 1))
                 if item.row_span > 1 or item.column_span > 1:

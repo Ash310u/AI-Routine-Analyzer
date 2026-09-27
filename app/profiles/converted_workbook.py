@@ -14,6 +14,8 @@ Converted workbook rules:
   generated sheet names (Table 1, Table 2, ...) are not source data.
 - Read only cell values and their row, column, and merged-span relationships.
   Never supply a value solely because a timetable normally has that field.
+- Treat a merged activity range as one class or lab across all covered periods.
+  The separate period labels above it do not create separate class slots.
 - Set each missing course, department, year, semester, section, room, period,
   time, subject, faculty, and group field to null (or [] for faculty_raw).
 - Preserve raw subject and faculty strings, including prefixes and numbers.
