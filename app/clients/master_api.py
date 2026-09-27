@@ -74,7 +74,10 @@ def _faculty(payload: Any) -> list[FacultyRecord]:
             "initials": _field(row, "Abbreviation", "initials", "faculty_initials", "short_name", "employee_code"),
             "name": _field(row, "EmployeeName", "name", "employee_name", "faculty_name", "full_name"),
             "aliases": aliases,
-            "department": _field(row, "Department", "department", "department_name"),
+            # Employee "Department" is an HR category (e.g. Academics/Admin);
+            # Stream is the teaching department used by timetable routines.
+            "department": _field(row, "Stream", "stream", "department_name"),
+            "category": _field(row, "Department", "department"),
         }))
     return result
 

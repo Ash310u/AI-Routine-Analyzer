@@ -7,7 +7,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from app.config import Settings
-from app.clients.master_api import MasterAPI
+from app.clients.master_api import MasterAPI, _faculty
 from app.llm.extractor import RoutineExtractor
 from app.ingestion.spreadsheet_routines import _activity
 from app.profiles.nsec import NSECProfile
@@ -79,6 +79,18 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         context.faculty.append(FacultyRecord(id=3, name="Sagar Chatterjee", department="AIML"))
         self.assertIsNone(resolve.faculty(["SC"], context)[0].faculty_id)
 
+    def test_employee_stream_sets_faculty_scope(self):
+        faculty = _faculty([{
+            "EmployeeId": 7, "EmployeeName": "Somnath Chatterjee",
+            "Department": "Academics", "Stream": "AIML",
+        }])
+        self.assertEqual(faculty[0].department, "AIML")
+        self.assertEqual(faculty[0].category, "Academics")
+        admin = _faculty([{"EmployeeId": 8, "EmployeeName": "Somnath Chatterjee",
+                           "Department": "Admin", "Stream": None}])
+        context = RoutineContext(subjects=[], faculty=admin, groups=[], sections=[], department="AIML")
+        self.assertIsNone(resolve.faculty(["SC"], context)[0].faculty_id)
+
     def test_code_beats_subject_text_and_group_is_section_scoped(self):
         context = RoutineContext(
             subjects=[SubjectRecord(id=8, code="PCC-CS392", name="Hardware Laboratory"),
@@ -112,7 +124,8 @@ class ProfilesAndResolutionTest(unittest.TestCase):
 
     def test_nsec_does_not_reuse_tint_master_urls(self):
         settings = Settings(subject_api_url="https://example.test/tint/subjects",
-                            faculty_api_url="https://example.test/tint/faculty")
+                            faculty_api_url="https://example.test/tint/faculty",
+                            nsec_subject_api_url="", nsec_faculty_api_url="")
         client = MasterAPI(settings)
         try:
             context = asyncio.run(client.load(RoutineExtraction.model_validate({

@@ -51,6 +51,8 @@ The adapter also accepts common snake-case alternatives. Faculty API aliases are
 
 `SUBJECT_API_URL`, `FACULTY_API_URL`, `GROUP_API_URL`, and `SECTION_API_URL` are the TINT sources. NSEC has separate `NSEC_*_API_URL` settings. Without NSEC endpoints, NSEC extraction still succeeds, but IDs remain unresolved for review. Generic workbooks likewise do not reuse TINT data. When configured, the same client fetches and caches each collection once per URL. Group records need an ID and name, and may include `SectionId`; section records need an ID and name. Matching uses the routine's section to scope groups. Student-to-group assignments must come from trusted records.
 
+The supplied TINT employee URL with `department_id=2` currently returns Admin records, which are excluded from teaching faculty matches. Faculty API records use `Stream` for the timetable department; their `Department` field is an HR category such as Academics or Admin.
+
 ## Current scope
 
 Subject matching scopes ERP records by the routine's stream, course, and semester when those fields are available, then tries exact code, alias, and name before accepting only a uniquely close spelling. Raw punctuation is preserved in output while comparison keys ignore separators. Faculty uses exact abbreviations and aliases before derived initials; short identifiers never use embeddings. Group and section matching is deterministic. Ambiguous or missing matches require review. Room text is preserved without a room ID. Confidence is a binary resolution indicator, not a calibrated probability. There is no automatic second model call; semantic embeddings and optional visual rechecks are future extensions.

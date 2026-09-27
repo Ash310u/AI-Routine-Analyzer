@@ -27,7 +27,9 @@ def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFacu
     result = []
     for raw in raw_values:
         key = normalize(raw)
-        scoped = [item for item in context.faculty if not item.department or not context.department
+        scoped = [item for item in context.faculty
+                  if not item.category or normalize(item.category) in {"academic", "academics"}
+                  if not item.department or not context.department
                   or normalize_department(item.department) == normalize_department(context.department)]
         matches = [item for item in scoped if item.initials and normalize(item.initials) == key]
         if not matches:

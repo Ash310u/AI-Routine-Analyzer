@@ -20,6 +20,7 @@ class FacultyRecord(BaseModel):
     name: str | None = None
     aliases: list[str] = Field(default_factory=list)
     department: str | None = None
+    category: str | None = None
 
 
 class GroupRecord(BaseModel):
