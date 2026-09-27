@@ -86,6 +86,33 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         context.faculty.append(FacultyRecord(id=3, name="Sagar Chatterjee", department="AIML"))
         self.assertIsNone(resolve.faculty(["SC"], context)[0].faculty_id)
 
+    def test_prefixed_nsec_faculty_uses_suffix_from_cached_api_records(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=_faculty([
+            {"EmployeeId": 41, "EmployeeName": "Sanjay Ghosh", "Stream": "AIML", "Department": "Academics"},
+            {"EmployeeId": 42, "EmployeeName": "Suman Gupta", "Stream": "CSE", "Department": "Academics"},
+            {"EmployeeId": 43, "EmployeeName": "Tapan Das", "Stream": "CSE", "Department": "Academics"},
+        ]))
+        resolved = resolve.faculty(["AIML_SG", "NSEC_AIML_SG", "TD"], context)
+        self.assertEqual([item.faculty_id for item in resolved], [41, 41, 43])
+        self.assertEqual([item.raw for item in resolved], ["AIML_SG", "NSEC_AIML_SG", "TD"])
+
+        routine = RoutineExtraction.model_validate({"department": "AIML", "slots": [{
+            "day": "Monday", "start_time": "10:00", "end_time": "11:00", "slot_type": "class",
+            "activities": [{"subject_raw": "AI-ML", "faculty_raw": ["AIML_SG"]}],
+        }]})
+        result = _enrich(routine, context, ({}, {}, {}))
+        self.assertEqual(result.slots[0].activities[0].faculty[0].faculty_id, 41)
+        self.assertEqual(result.slots[0].activities[0].faculty[0].raw, "AIML_SG")
+
+    def test_prefixed_initial_remains_unresolved_when_department_tie_remains(self):
+        context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
+            FacultyRecord(id=41, name="Sanjay Ghosh", department="AIML"),
+            FacultyRecord(id=44, name="Suman Gupta", department="AIML"),
+            FacultyRecord(id=42, name="Sagar Ghosh", department="CSE"),
+        ])
+        self.assertIsNone(resolve.faculty(["AIML_SG"], context)[0].faculty_id)
+        self.assertIsNone(resolve.faculty(["AIML_"], context)[0].faculty_id)
+
     def test_employee_stream_sets_faculty_scope(self):
         faculty = _faculty([{
             "EmployeeId": 7, "EmployeeName": "Somnath Chatterjee",

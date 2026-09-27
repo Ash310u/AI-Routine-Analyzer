@@ -25,10 +25,19 @@ def group(raw: str | None, context: RoutineContext) -> ResolvedGroup | None:
 def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFaculty]:
     result = []
     for raw in raw_values:
-        key = normalize(raw)
-        matches = [item for item in context.faculty
-                   if (not item.category or normalize(item.category) in {"academic", "academics"})
-                   and key in _faculty_identifiers(item)]
+        keys = [normalize(raw)]
+        if "_" in raw:
+            initial = normalize(raw.rsplit("_", 1)[1])
+            if initial and initial not in keys:
+                keys.append(initial)
+
+        matches = []
+        for key in keys:
+            matches = [item for item in context.faculty
+                       if (not item.category or normalize(item.category) in {"academic", "academics"})
+                       and key in _faculty_identifiers(item)]
+            if matches:
+                break
         if len(matches) > 1 and context.department:
             same_department = [item for item in matches if item.department and
                                normalize_department(item.department) == normalize_department(context.department)]
