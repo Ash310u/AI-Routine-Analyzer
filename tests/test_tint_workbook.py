@@ -20,13 +20,28 @@ WORKBOOK = Path(__file__).resolve().parents[1] / "Routines" / "TINT" / "tint.xls
 class FakeMaster:
     def __init__(self):
         self.calls = 0
+        self.college_ids = []
 
-    async def load(self, routine):
+    async def load(self, routine, college_id):
         self.calls += 1
-        return RoutineContext(subjects=[], faculty=[], groups=[], sections=[])
+        self.college_ids.append(college_id)
+        return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
 
 
 class TintWorkbookTest(unittest.TestCase):
+    def test_upload_requires_college_id(self):
+        async def request():
+            transport = httpx.ASGITransport(app=app)
+            async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+                return await client.post(
+                    "/routines/standardize",
+                    files={"file": ("tint.xlsx", b"workbook", "application/octet-stream")},
+                )
+
+        response = asyncio.run(request())
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("college_id", response.text)
+
     def test_upload_returns_and_saves_all_routines_without_llm(self):
         master = FakeMaster()
         with tempfile.TemporaryDirectory() as directory:
@@ -41,7 +56,7 @@ class TintWorkbookTest(unittest.TestCase):
                     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
                         with WORKBOOK.open("rb") as stream:
                             return await client.post(
-                                "/routines/standardize",
+                                "/routines/standardize?college_id=2",
                                 files={"file": (WORKBOOK.name, stream,
                                                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")},
                             )
@@ -50,10 +65,12 @@ class TintWorkbookTest(unittest.TestCase):
             self.assertEqual(response.status_code, 200, response.text)
             payload = response.json()
             self.assertEqual(payload["source_type"], "workbook")
+            self.assertEqual(payload["college_id"], 2)
             self.assertEqual(payload["routine_count"], 30)
             self.assertEqual(len(payload["routines"]), 30)
             self.assertEqual(sum(len(r["slots"]) for r in payload["routines"]), 1084)
             self.assertEqual(master.calls, 1)
+            self.assertEqual(master.college_ids, [2])
 
             first = payload["routines"][0]
             self.assertEqual(first["department"], "CSE")

@@ -1,4 +1,3 @@
-import re
 from difflib import SequenceMatcher
 
 from app.resolvers.matching import normalize, normalize_department, normalize_group, normalize_section, normalize_semester
@@ -27,30 +26,27 @@ def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFacu
     result = []
     for raw in raw_values:
         key = normalize(raw)
-        scoped = [item for item in context.faculty
-                  if not item.category or normalize(item.category) in {"academic", "academics"}
-                  if not item.department or not context.department
-                  or normalize_department(item.department) == normalize_department(context.department)]
-        matches = [item for item in scoped if item.initials and normalize(item.initials) == key]
-        if not matches:
-            matches = [item for item in scoped if any(normalize(alias) == key for alias in item.aliases)]
-        if not matches:
-            matches = [item for item in scoped if key in _faculty_identifiers(item, context.department)]
+        matches = [item for item in context.faculty
+                   if (not item.category or normalize(item.category) in {"academic", "academics"})
+                   and key in _faculty_identifiers(item)]
+        if len(matches) > 1 and context.department:
+            same_department = [item for item in matches if item.department and
+                               normalize_department(item.department) == normalize_department(context.department)]
+            if same_department:
+                matches = same_department
         item = matches[0] if len(matches) == 1 else None
         result.append(ResolvedFaculty(raw=raw, faculty_id=item.id if item else None, name=item.name if item else None))
     return result
 
 
-def _faculty_identifiers(item, department: str | None) -> set[str]:
-    identifiers = set()
-    if item.name:
-        words = re.findall(r"[A-Za-z]+", item.name)
-        if len(words) >= 2:
-            identifiers.add(normalize("".join(word[0] for word in words)))
+def _faculty_identifiers(item) -> set[str]:
+    identifiers = {normalize(alias) for alias in item.aliases}
+    if item.initial:
+        identifiers.add(normalize(item.initial))
     if item.initials:
         identifiers.add(normalize(item.initials))
-    if department:
-        identifiers.update(normalize_department(department) + value for value in tuple(identifiers))
+    if item.department:
+        identifiers.update(normalize_department(item.department) + value for value in tuple(identifiers))
     return identifiers
 
 

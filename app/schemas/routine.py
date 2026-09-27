@@ -61,6 +61,7 @@ class ResolvedSlot(BaseModel):
 
 
 class StandardizedRoutine(BaseModel):
+    college_id: int | None = None
     college: str | None
     course: str | None
     department: str | None
@@ -76,6 +77,7 @@ class StandardizedRoutine(BaseModel):
 
 
 class StandardizedWorkbook(BaseModel):
+    college_id: int | None = None
     source_type: Literal["workbook"] = "workbook"
     routine_count: int
     routines: list[StandardizedRoutine]
@@ -84,6 +86,7 @@ class StandardizedWorkbook(BaseModel):
 
 
 class StandardizedDocument(BaseModel):
+    college_id: int | None = None
     source_type: Literal["document"] = "document"
     routine_count: int
     routines: list[StandardizedRoutine]

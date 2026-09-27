@@ -133,25 +133,21 @@ class MasterAPI:
             self._cache[url] = (time.monotonic() + self.settings.master_cache_ttl_seconds, records)
             return records
 
-    async def load(self, routine: RoutineExtraction, profile: str = "tint") -> RoutineContext:
-        if profile == "nsec":
-            urls = (self.settings.nsec_subject_api_url, self.settings.nsec_faculty_api_url,
-                    self.settings.nsec_group_api_url, self.settings.nsec_section_api_url)
-        elif profile == "tint":
-            urls = (self.settings.subject_api_url, self.settings.faculty_api_url,
-                    self.settings.group_api_url, self.settings.section_api_url)
-        else:
-            return RoutineContext(subjects=[], faculty=[], groups=[], sections=[],
-                                  department=routine.department, section=routine.section,
-                                  course=routine.course, semester=routine.semester)
-        subject_url, faculty_url, group_url, section_url = urls
-        if profile == "nsec" and not subject_url and not faculty_url:
-            return RoutineContext(subjects=[], faculty=[], groups=[], sections=[],
-                                  department=routine.department, section=routine.section,
-                                  course=routine.course, semester=routine.semester)
-        if not subject_url or not faculty_url:
-            prefix = "NSEC_" if profile == "nsec" else ""
-            raise MasterDataError(f"Set {prefix}SUBJECT_API_URL and {prefix}FACULTY_API_URL in .env")
+    @staticmethod
+    def _college_url(base_url: str, college_id: int) -> str:
+        # A base URL may contain stale query parameters from an older config.
+        # Only the requested college ID is sent to the master-data API.
+        return str(httpx.URL(base_url).copy_with(query=None).copy_merge_params({"college_id": college_id}))
+
+    async def load(self, routine: RoutineExtraction, college_id: int) -> RoutineContext:
+        if not self.settings.subject_api_base_url or not self.settings.faculty_api_base_url:
+            raise MasterDataError("Set SUBJECT_API_BASE_URL and FACULTY_API_BASE_URL in .env")
+        if college_id < 1:
+            raise MasterDataError("college_id must be a positive integer")
+        subject_url = self._college_url(self.settings.subject_api_base_url, college_id)
+        faculty_url = self._college_url(self.settings.faculty_api_base_url, college_id)
+        group_url = self._college_url(self.settings.group_api_base_url, college_id) if self.settings.group_api_base_url else ""
+        section_url = self._college_url(self.settings.section_api_base_url, college_id) if self.settings.section_api_base_url else ""
         subjects, faculty, groups, sections = await asyncio.gather(
             self._get(subject_url, "subjects", _subjects),
             self._get(faculty_url, "employees", _faculty),
@@ -160,4 +156,4 @@ class MasterAPI:
         )
         return RoutineContext(subjects=subjects, faculty=faculty, groups=groups, sections=sections,
                               department=routine.department, section=routine.section,
-                              course=routine.course, semester=routine.semester)
+                              course=routine.course, semester=routine.semester, college_id=college_id)

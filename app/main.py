@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 
 import httpx
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 from openai import APIConnectionError, APIError, APITimeoutError
 
 from app.clients.master_api import MasterAPI, MasterDataError
@@ -31,14 +31,16 @@ async def health() -> dict[str, str]:
 
 
 @app.post("/routines/standardize", response_model=StandardizedRoutine | StandardizedWorkbook | StandardizedDocument)
-async def standardize(file: UploadFile = File(...)) -> StandardizedRoutine | StandardizedWorkbook | StandardizedDocument:
+async def standardize(
+    file: UploadFile = File(...), college_id: int = Query(..., ge=1),
+) -> StandardizedRoutine | StandardizedWorkbook | StandardizedDocument:
     settings = Settings()
     limit = settings.max_upload_mb * 1024 * 1024
     data = await file.read(limit + 1)
     if len(data) > limit:
         raise HTTPException(status_code=413, detail="File exceeds upload limit")
     try:
-        routine = await process_routine(data, settings, app.state.master_api)
+        routine = await process_routine(data, settings, app.state.master_api, college_id)
         save_routine(routine, file.filename, settings)
         return routine
     except DocumentError as exc:

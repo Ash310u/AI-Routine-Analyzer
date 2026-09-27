@@ -16,7 +16,7 @@ from app.schemas.routine import (
 
 
 async def process_routine(
-    data: bytes, settings: Settings, master_api: MasterAPI,
+    data: bytes, settings: Settings, master_api: MasterAPI, college_id: int,
 ) -> StandardizedRoutine | StandardizedWorkbook | StandardizedDocument:
     if is_excel_workbook(data):
         try:
@@ -24,29 +24,30 @@ async def process_routine(
         except NoRoutineBlocks:
             extracted = await RoutineExtractor(settings, GenericProfile()).extract([], workbook_text(data, settings))
         else:
-            context = await master_api.load(extracted_routines[0])
+            context = await master_api.load(extracted_routines[0], college_id)
             caches = ({}, {}, {})
             routines = [_enrich(item, context, caches) for item in extracted_routines]
             return StandardizedWorkbook(
+                college_id=college_id,
                 routine_count=len(routines), routines=routines,
                 requires_review=any(routine.requires_review for routine in routines),
             )
         if isinstance(extracted, list):
-            context = await master_api.load(extracted[0], profile="generic")
+            context = await master_api.load(extracted[0], college_id)
             routines = [_enrich(item, context, ({}, {}, {})) for item in extracted]
-            return StandardizedWorkbook(routine_count=len(routines), routines=routines,
+            return StandardizedWorkbook(college_id=college_id, routine_count=len(routines), routines=routines,
                                         requires_review=any(item.requires_review for item in routines))
-        context = await master_api.load(extracted, profile="generic")
+        context = await master_api.load(extracted, college_id)
         return _enrich(extracted, context, ({}, {}, {}))
     pages = image_data_urls(data, settings)
     extracted = await RoutineExtractor(settings, NSECProfile()).extract(pages, None)
     if isinstance(extracted, list):
-        context = await master_api.load(extracted[0], profile="nsec")
+        context = await master_api.load(extracted[0], college_id)
         caches = ({}, {}, {})
         routines = [_enrich(item, context, caches) for item in extracted]
-        return StandardizedDocument(routine_count=len(routines), routines=routines,
+        return StandardizedDocument(college_id=college_id, routine_count=len(routines), routines=routines,
                                     requires_review=any(item.requires_review for item in routines))
-    context = await master_api.load(extracted, profile="nsec")
+    context = await master_api.load(extracted, college_id)
     return _enrich(extracted, context, ({}, {}, {}))
 
 
@@ -116,6 +117,7 @@ def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple
         ))
     _flag_overlapping_activities(slots)
     return StandardizedRoutine(
+        college_id=context.college_id,
         college=extracted.college, course=extracted.course,
         department=extracted.department, year=extracted.year,
         semester=extracted.semester, section=resolved_section,

@@ -6,6 +6,8 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import httpx
+
 from app.config import Settings
 from app.clients.master_api import MasterAPI, _faculty
 from app.llm.extractor import RoutineExtractor
@@ -55,17 +57,18 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual(len(extracted), 2)
 
         class FakeMaster:
-            async def load(self, routine, profile):
-                self.profile = profile
-                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[])
+            async def load(self, routine, college_id):
+                self.college_id = college_id
+                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
 
         master = FakeMaster()
         with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=extracted,
         ):
-            result = asyncio.run(process_routine(b"pdf", Settings(), master))
-        self.assertEqual(master.profile, "nsec")
+            result = asyncio.run(process_routine(b"pdf", Settings(), master, 1))
+        self.assertEqual(master.college_id, 1)
         self.assertEqual(result.source_type, "document")
+        self.assertEqual(result.college_id, 1)
         self.assertEqual(result.routine_count, 2)
         self.assertEqual([item.section.raw for item in result.routines], ["AIML.1", "AIML.2"])
 
@@ -76,6 +79,10 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         ])
         self.assertEqual(resolve.faculty(["AIML_SC", "SC"], context)[0].faculty_id, 1)
         self.assertEqual(resolve.faculty(["SC"], context)[0].faculty_id, 1)
+        self.assertEqual(context.faculty[0].initial, "SC")
+        context.department = "ECE"
+        self.assertIsNone(resolve.faculty(["SC"], context)[0].faculty_id)
+        context.department = "AIML"
         context.faculty.append(FacultyRecord(id=3, name="Sagar Chatterjee", department="AIML"))
         self.assertIsNone(resolve.faculty(["SC"], context)[0].faculty_id)
 
@@ -122,19 +129,37 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         context.semester = "3rd Semester"
         self.assertEqual(resolve.subject("PCC-CS301", "PCC-CS301", context).subject_master_id, 927)
 
-    def test_nsec_does_not_reuse_tint_master_urls(self):
-        settings = Settings(subject_api_url="https://example.test/tint/subjects",
-                            faculty_api_url="https://example.test/tint/faculty",
-                            nsec_subject_api_url="", nsec_faculty_api_url="")
+    def test_master_cache_is_scoped_by_college_id(self):
+        settings = Settings(subject_api_base_url="https://example.test/subjects",
+                            faculty_api_base_url="https://example.test/employees?department_id=2&college_id=99")
+        calls = []
+
+        def respond(request):
+            calls.append(str(request.url))
+            self.assertNotIn("department_id", str(request.url))
+            college_id = int(request.url.params["college_id"])
+            if request.url.path == "/subjects":
+                return httpx.Response(200, json=[{"SubjectMasterId": college_id, "Name": "Math"}])
+            return httpx.Response(200, json=[{"EmployeeId": college_id,
+                                               "EmployeeName": "Somnath Chatterjee",
+                                               "Department": "Academics", "Stream": "CSE"}])
+
         client = MasterAPI(settings)
-        try:
-            context = asyncio.run(client.load(RoutineExtraction.model_validate({
-                "department": "AIML", "slots": [{"activities": []}],
-            }), profile="nsec"))
-            self.assertEqual(context.subjects, [])
-            self.assertEqual(context.faculty, [])
-        finally:
-            asyncio.run(client.aclose())
+        client.client = httpx.AsyncClient(transport=httpx.MockTransport(respond))
+        routine = RoutineExtraction.model_validate({"department": "CSE", "slots": [{"activities": []}]})
+
+        async def check():
+            try:
+                first = await client.load(routine, 1)
+                second = await client.load(routine, 2)
+                again = await client.load(routine, 1)
+                self.assertEqual([first.subjects[0].id, second.subjects[0].id, again.subjects[0].id], [1, 2, 1])
+                self.assertEqual(first.faculty[0].initial, "SC")
+                self.assertEqual(len(calls), 4)
+            finally:
+                await client.aclose()
+
+        asyncio.run(check())
 
     def test_overlapping_group_activity_requires_review(self):
         routine = RoutineExtraction.model_validate({"section": "1", "slots": [
