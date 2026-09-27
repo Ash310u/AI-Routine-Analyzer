@@ -343,6 +343,28 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual(faculty.raw, "AIML_KB")
         self.assertEqual(faculty.faculty_id, 53)
 
+    def test_multistream_faculty_matches_routine_or_section_department(self):
+        employees = _faculty([
+            {"EmployeeId": 53, "EmployeeName": "A B", "Abbreviation": "KB",
+             "Stream": "AIML + CSE", "Department": "Academics"},
+            {"EmployeeId": 113, "EmployeeName": "C D", "Abbreviation": "KB",
+             "Stream": "ECE", "Department": "Academics"},
+        ])
+        context = RoutineContext(subjects=[], groups=[], sections=[], faculty=employees, department="AIML")
+        self.assertEqual(resolve.faculty(["AIML_KB"], context)[0].faculty_id, 53)
+        context.department = "CSE"
+        self.assertEqual(resolve.faculty(["CSE_KB"], context)[0].faculty_id, 53)
+        context.department = None
+        context.section = "AIML.3B"
+        self.assertEqual(resolve.faculty(["AIML_KB"], context)[0].faculty_id, 53)
+        context.section = None
+        context.department = "AI"
+        self.assertIsNone(resolve.faculty(["KB"], context)[0].faculty_id)
+
+        context.department = "AIML"
+        context.faculty.append(FacultyRecord(id=200, initials="KB", department="AIML"))
+        self.assertIsNone(resolve.faculty(["AIML_KB"], context)[0].faculty_id)
+
     def test_prefixed_initial_remains_unresolved_when_department_tie_remains(self):
         context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
             FacultyRecord(id=41, name="Sanjay Ghosh", department="AIML"),

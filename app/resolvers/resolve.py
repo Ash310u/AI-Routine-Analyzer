@@ -41,8 +41,7 @@ def faculty(raw_values: list[str], context: RoutineContext) -> list[ResolvedFacu
         if not matches:
             matches = [item for item in eligible if key and key in _faculty_identifiers(item)]
         if len(matches) > 1 and department:
-            same_department = [item for item in matches if item.department and
-                               normalize_department(item.department) == normalize_department(department)]
+            same_department = [item for item in matches if _faculty_teaches_department(item.department, department)]
             if same_department:
                 matches = same_department
         item = matches[0] if len(matches) == 1 else None
@@ -57,10 +56,15 @@ def faculty_department(context: RoutineContext) -> str | None:
     if not match:
         return None
     candidate = match.group(1).strip()
-    key = normalize_department(candidate)
-    if any(item.department and normalize_department(item.department) == key for item in context.faculty):
+    if any(_faculty_teaches_department(item.department, candidate) for item in context.faculty):
         return candidate
     return None
+
+
+def _faculty_teaches_department(stream: str | None, department: str) -> bool:
+    """Match a whole department within an ERP multi-stream value such as AIML + CSE."""
+    target = normalize_department(department)
+    return bool(target) and any(normalize_department(part) == target for part in (stream or "").split("+"))
 
 
 def _faculty_identifiers(item) -> set[str]:
