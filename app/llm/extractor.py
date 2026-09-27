@@ -6,7 +6,7 @@ from pydantic import ValidationError
 from app.config import Settings
 from app.llm.prompts import SPREADSHEET_CONTEXT
 from app.profiles.nsec import NSECProfile
-from app.schemas.canonical_raw import RoutineExtraction
+from app.schemas.canonical_raw import RoutineCollectionExtraction, RoutineExtraction
 
 
 class ExtractionError(ValueError):
@@ -41,7 +41,7 @@ class RoutineExtractor:
         else:
             raise ExtractionError(f"Unsupported LLM_PROVIDER: {settings.llm_provider}")
 
-    async def extract(self, image_urls: list[str], document_text: str | None = None) -> RoutineExtraction | list[RoutineExtraction]:
+    async def extract(self, image_urls: list[str], document_text: str | None = None) -> list[RoutineExtraction]:
         content = [{"type": "text", "text": self.profile.prompt}]
         if document_text is not None:
             content.append({"type": "text", "text": SPREADSHEET_CONTEXT + document_text})
@@ -64,11 +64,8 @@ class RoutineExtractor:
             body = body[:-3]
         try:
             payload = json.loads(body.strip())
-            if isinstance(payload, list):
-                if not payload:
-                    raise ExtractionError("Model returned no routines")
-                return [self.profile.adapt(self.profile.raw_schema.model_validate(item)) for item in payload]
-            raw = self.profile.raw_schema.model_validate(payload)
-            return self.profile.adapt(raw)
+            collection = RoutineCollectionExtraction.model_validate(payload)
+            return [self.profile.adapt(self.profile.raw_schema.model_validate(item.model_dump()))
+                    for item in collection.routines]
         except (json.JSONDecodeError, ValidationError) as exc:
-            raise ExtractionError("Model response was not valid routine JSON") from exc
+            raise ExtractionError("Model response must be JSON with a nonempty routines array") from exc

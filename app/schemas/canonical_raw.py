@@ -57,3 +57,10 @@ class RoutineExtraction(BaseModel):
     @classmethod
     def metadata_to_string(cls, value):
         return str(value) if isinstance(value, int) else value
+
+
+class RoutineCollectionExtraction(BaseModel):
+    """One document with one or more independently described routines."""
+
+    model_config = ConfigDict(extra="forbid")
+    routines: list[RoutineExtraction] = Field(min_length=1)

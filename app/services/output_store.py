@@ -9,13 +9,13 @@ from pathlib import Path
 from uuid import uuid4
 
 from app.config import Settings
-from app.schemas.routine import StandardizedDocument, StandardizedRoutine, StandardizedWorkbook
+from app.schemas.routine import StandardizedDocument, StandardizedWorkbook
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
-def save_routine(routine: StandardizedRoutine | StandardizedWorkbook | StandardizedDocument, source_name: str | None, settings: Settings) -> Path:
+def save_routine(routine: StandardizedWorkbook | StandardizedDocument, source_name: str | None, settings: Settings) -> Path:
     directory = Path(settings.output_dir)
     if not directory.is_absolute():
         directory = PROJECT_ROOT / directory

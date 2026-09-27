@@ -61,49 +61,69 @@ RULES
     unreadable, subject_raw is null. The same applies to room, group, course
     code, and metadata. Missing faculty means faculty_raw: [].
 
-15. Output JSON matching the extraction schema below only. Do not provide
+15. A document may contain one or many independent routines. Return one object
+    in routines[] for each distinct course/department/year/semester/section
+    timetable. Put course, department, year, semester, section, default_room,
+    and routine_version on
+    THAT routine object, followed by its own slots[]. Keep all days, periods,
+    times, slot types, parallel activities, raw faculty values, and notes in
+    the correct routine. Never put these metadata fields or slots at the
+    document root. A single routine still uses a one-element routines array.
+
+16. A document-wide heading may supply a value for several routine objects
+    only when it clearly applies to each of them. If a value is not visible
+    or cannot be determined for one routine, keep that routine's field null.
+    Do not merge tables with different metadata into one routine or duplicate
+    a slot.
+
+17. Output JSON matching the extraction schema below only. Do not provide
     explanations outside the JSON. Do not output resolved database fields:
     the application resolves subject, faculty, group, and section after
     extraction.
 
 Required extraction JSON shape:
 {
-  "college": null,
-  "course": null,
-  "department": null,
-  "year": null,
-  "semester": null,
-  "section": null,
-  "default_room": null,
-  "routine_version": null,
-  "slots": [
+  "routines": [
     {
-      "day": "Monday",
-      "start_period": null,
-      "end_period": null,
-      "start_time": "11:50:00",
-      "end_time": "12:40:00",
-      "slot_type": "class",
-      "activities": [
+      "college": null,
+      "course": null,
+      "department": null,
+      "year": null,
+      "semester": null,
+      "section": null,
+      "default_room": null,
+      "routine_version": null,
+      "slots": [
         {
-          "group_raw": null,
-          "subject_raw": "visible subject text",
-          "subject_code_raw": null,
-          "subject_type_raw": null,
-          "faculty_raw": [],
-          "room_raw": null,
-          "notes": null
+          "day": "Monday",
+          "start_period": null,
+          "end_period": null,
+          "start_time": "11:50:00",
+          "end_time": "12:40:00",
+          "slot_type": "class",
+          "activities": [
+            {
+              "group_raw": null,
+              "subject_raw": "visible subject text",
+              "subject_code_raw": null,
+              "subject_type_raw": null,
+              "faculty_raw": [],
+              "room_raw": null,
+              "notes": null
+            }
+          ]
         }
       ]
     }
   ]
 }
 
+Repeat the routine object for every distinct section/class timetable.
 Use 24-hour times. Include each visible slot once. Breaks have slot_type
 "break" and activities []. Other non-class slots may use slot_type "other".
 If day, time, or slot type is unreadable, return null for that field.
 """
 
-SPREADSHEET_CONTEXT = """The routine below came from an Excel workbook. Each Sheet line starts a worksheet. Cell addresses preserve its row and column positions, and merged-cell ranges show which cells form one visual block. Read all visible sheets as one document. Treat a blank cell inside a merged range as part of the value at the range's top-left cell. Do not treat cell addresses as subject or room text. Excel formulas are not recalculated by this service; use only the values supplied below.
+SPREADSHEET_CONTEXT = """The routine below came from an Excel workbook. Each Sheet line starts a worksheet. Cell addresses preserve its row and column positions, and merged-cell ranges show which cells form one visual block. Read all visible sheets as one document. Create a separate routines[] entry for each independently labeled section/class table; attach that table's metadata and all of its slots to that entry. Treat a blank cell inside a merged range as part of the value at the range's top-left cell. Do not treat cell addresses as subject or room text. Excel formulas are not recalculated by this service; use only the values supplied below.
 
 """

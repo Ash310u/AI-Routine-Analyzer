@@ -1,6 +1,6 @@
 from app.clients.master_api import MasterAPI
 from app.config import Settings
-from app.ingestion.document import image_data_urls
+from app.ingestion.document import DocumentError, image_data_urls
 from app.ingestion.spreadsheet import is_excel_workbook, workbook_text
 from app.ingestion.spreadsheet_routines import NoRoutineBlocks
 from app.llm.extractor import RoutineExtractor
@@ -17,38 +17,29 @@ from app.schemas.routine import (
 
 async def process_routine(
     data: bytes, settings: Settings, master_api: MasterAPI, college_id: int,
-) -> StandardizedRoutine | StandardizedWorkbook | StandardizedDocument:
+) -> StandardizedWorkbook | StandardizedDocument:
     if is_excel_workbook(data):
         try:
             extracted_routines = [TINTProfile.adapt(raw) for raw in TINTProfile.extract(data, settings)]
         except NoRoutineBlocks:
-            extracted = await RoutineExtractor(settings, GenericProfile()).extract([], workbook_text(data, settings))
-        else:
-            context = await master_api.load(extracted_routines[0], college_id)
-            caches = ({}, {}, {})
-            routines = [_enrich(item, context, caches) for item in extracted_routines]
-            return StandardizedWorkbook(
-                college_id=college_id,
-                routine_count=len(routines), routines=routines,
-                requires_review=any(routine.requires_review for routine in routines),
+            extracted_routines = await RoutineExtractor(settings, GenericProfile()).extract(
+                [], workbook_text(data, settings),
             )
-        if isinstance(extracted, list):
-            context = await master_api.load(extracted[0], college_id)
-            routines = [_enrich(item, context, ({}, {}, {})) for item in extracted]
-            return StandardizedWorkbook(college_id=college_id, routine_count=len(routines), routines=routines,
-                                        requires_review=any(item.requires_review for item in routines))
-        context = await master_api.load(extracted, college_id)
-        return _enrich(extracted, context, ({}, {}, {}))
-    pages = image_data_urls(data, settings)
-    extracted = await RoutineExtractor(settings, NSECProfile()).extract(pages, None)
-    if isinstance(extracted, list):
-        context = await master_api.load(extracted[0], college_id)
-        caches = ({}, {}, {})
-        routines = [_enrich(item, context, caches) for item in extracted]
-        return StandardizedDocument(college_id=college_id, routine_count=len(routines), routines=routines,
-                                    requires_review=any(item.requires_review for item in routines))
-    context = await master_api.load(extracted, college_id)
-    return _enrich(extracted, context, ({}, {}, {}))
+        result_type = StandardizedWorkbook
+    else:
+        pages = image_data_urls(data, settings)
+        extracted_routines = await RoutineExtractor(settings, NSECProfile()).extract(pages, None)
+        result_type = StandardizedDocument
+
+    if not extracted_routines:
+        raise DocumentError("No routines found in the uploaded document")
+    context = await master_api.load(extracted_routines[0], college_id)
+    caches = ({}, {}, {})
+    routines = [_enrich(item, context, caches) for item in extracted_routines]
+    return result_type(
+        college_id=college_id, routine_count=len(routines), routines=routines,
+        requires_review=any(routine.requires_review for routine in routines),
+    )
 
 
 def _enrich(extracted: RoutineExtraction, context: RoutineContext, caches: tuple[dict, dict, dict]) -> StandardizedRoutine:

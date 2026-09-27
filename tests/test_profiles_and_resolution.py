@@ -2,16 +2,20 @@
 
 import asyncio
 import json
+import tempfile
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 import httpx
 
 from app.config import Settings
 from app.clients.master_api import MasterAPI, _faculty
+from app.llm.extractor import ExtractionError
 from app.llm.extractor import RoutineExtractor
-from app.ingestion.spreadsheet_routines import _activity
+from app.main import app
+from app.ingestion.spreadsheet_routines import NoRoutineBlocks, _activity
 from app.profiles.nsec import NSECProfile
 from app.resolvers import resolve
 from app.schemas.canonical_raw import RoutineExtraction
@@ -32,26 +36,39 @@ class FakeModel:
 
 class ProfilesAndResolutionTest(unittest.TestCase):
     def test_nsec_model_output_crosses_canonical_boundary(self):
-        model = FakeModel({
-            "department": "AIML", "section": "AIML.4",
+        model = FakeModel({"routines": [{
+            "course": "B.Tech", "department": "AIML", "year": "2", "semester": "3",
+            "section": "AIML.4", "default_room": "R-318",
             "slots": [{"day": "Monday", "start_period": 4, "end_period": 5,
                        "start_time": "11:50", "end_time": "13:30", "slot_type": "class",
-                       "activities": [{"subject_raw": "AI-ML", "faculty_raw": ["AIML_SC"]}]},
+                       "activities": [{"subject_raw": "AI-ML", "faculty_raw": ["AIML_SC"],
+                                       "room_raw": "Lab 1", "notes": "Visible note"}]},
                       ],
-        })
+        }]})
         raw = asyncio.run(RoutineExtractor(Settings(), NSECProfile(), model).extract(["data:image/png;base64,AA=="]))
-        self.assertIs(type(raw), RoutineExtraction)
-        self.assertEqual(raw.slots[0].end_period, 5)
-        self.assertEqual(raw.slots[0].activities[0].faculty_raw, ["AIML_SC"])
+        self.assertEqual(len(raw), 1)
+        self.assertIs(type(raw[0]), RoutineExtraction)
+        self.assertEqual((raw[0].course, raw[0].department, raw[0].year, raw[0].semester,
+                          raw[0].section, raw[0].default_room),
+                         ("B.Tech", "AIML", "2", "3", "AIML.4", "R-318"))
+        self.assertEqual(raw[0].slots[0].end_period, 5)
+        self.assertEqual(raw[0].slots[0].activities[0].faculty_raw, ["AIML_SC"])
+        self.assertEqual(raw[0].slots[0].activities[0].room_raw, "Lab 1")
+        self.assertEqual(raw[0].slots[0].activities[0].notes, "Visible note")
         self.assertIn("NSEC format rules", model.messages[0]["content"][0]["text"])
+        self.assertIn('"routines": [', model.messages[0]["content"][0]["text"])
 
     def test_nsec_multi_table_pdf_returns_document_collection(self):
-        payload = [
-            {"department": "AIML", "section": section,
+        payload = {"routines": [
+            {"course": course, "department": department, "year": str(year),
+             "semester": str(semester), "section": section,
              "slots": [{"day": "Monday", "start_time": "10:00", "end_time": "11:00",
                         "slot_type": "class", "activities": [{"subject_raw": "DSA"}]}]}
-            for section in ("AIML.1", "AIML.2")
-        ]
+            for course, department, section, year, semester in (
+                ("B.Tech", "AIML", "AIML.1", 2, 3),
+                ("M.Tech", "CSE", "CSE.2", 1, 1),
+            )
+        ]}
         model = FakeModel(payload)
         extracted = asyncio.run(RoutineExtractor(Settings(), NSECProfile(), model).extract(["data:image/png;base64,AA=="]))
         self.assertEqual(len(extracted), 2)
@@ -70,7 +87,122 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual(result.source_type, "document")
         self.assertEqual(result.college_id, 1)
         self.assertEqual(result.routine_count, 2)
-        self.assertEqual([item.section.raw for item in result.routines], ["AIML.1", "AIML.2"])
+        self.assertEqual([item.course for item in result.routines], ["B.Tech", "M.Tech"])
+        self.assertEqual([item.department for item in result.routines], ["AIML", "CSE"])
+        self.assertEqual([item.section.raw for item in result.routines], ["AIML.1", "CSE.2"])
+        self.assertEqual([item.year for item in result.routines], ["2", "1"])
+        self.assertEqual([item.semester for item in result.routines], ["3", "1"])
+        self.assertEqual([item.slots[0].activities[0].subject.raw for item in result.routines], ["DSA", "DSA"])
+
+    def test_nsec_single_table_returns_routines_array_with_complete_slot(self):
+        extracted = RoutineExtraction.model_validate({
+            "course": "B.Tech", "department": "AIML", "year": "2", "semester": "3",
+            "section": "AIML.2A", "default_room": "R-318", "routine_version": "V1",
+            "slots": [{
+                "day": "Monday", "start_period": 4, "end_period": 5,
+                "start_time": "11:50", "end_time": "13:30", "slot_type": "class",
+                "activities": [{"group_raw": "Gr-A", "subject_raw": "DSA Lab",
+                                "subject_code_raw": "PCC-CS392", "subject_type_raw": "Lab",
+                                "faculty_raw": ["AIML_SC", "AIML_SS"], "room_raw": "Lab 1",
+                                "notes": "Printed note"}],
+            }],
+        })
+
+        class FakeMaster:
+            async def load(self, routine, college_id):
+                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
+
+        with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+            "app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted],
+        ):
+            result = asyncio.run(process_routine(b"pdf", Settings(), FakeMaster(), 1))
+        payload = result.model_dump(mode="json")
+        self.assertEqual((payload["source_type"], payload["routine_count"], len(payload["routines"])),
+                         ("document", 1, 1))
+        routine = payload["routines"][0]
+        self.assertEqual((routine["course"], routine["department"], routine["year"],
+                          routine["semester"], routine["section"]["raw"], routine["default_room"]),
+                         ("B.Tech", "AIML", "2", "3", "AIML.2A", "R-318"))
+        slot = routine["slots"][0]
+        self.assertEqual((slot["day"], slot["start_period"], slot["end_period"],
+                          slot["start_time"], slot["end_time"], slot["slot_type"]),
+                         ("Monday", 4, 5, "11:50:00", "13:30:00", "class"))
+        activity = slot["activities"][0]
+        self.assertEqual((activity["group"]["raw"], activity["subject"]["raw"],
+                          activity["subject"]["code_raw"], activity["subject_type_raw"],
+                          [person["raw"] for person in activity["faculty"]],
+                          activity["room"]["raw"], activity["notes"]),
+                         ("Gr-A", "DSA Lab", "PCC-CS392", "Lab", ["AIML_SC", "AIML_SS"],
+                          "Lab 1", "Printed note"))
+
+    def test_extractor_rejects_missing_routines_array(self):
+        model = FakeModel({"section": "AIML.2A", "slots": [{"activities": []}]})
+        with self.assertRaises(ExtractionError):
+            asyncio.run(RoutineExtractor(Settings(), NSECProfile(), model).extract([]))
+
+    def test_single_nsec_api_response_and_saved_file_use_routines_array(self):
+        extracted = RoutineExtraction.model_validate({"course": "B.Tech", "department": "AIML",
+            "year": "2", "semester": "3", "section": "AIML.2A", "slots": [{
+                "day": "Monday", "start_period": 4, "end_period": 5,
+                "start_time": "11:50", "end_time": "13:30", "slot_type": "class",
+                "activities": [{"subject_raw": "DSA Lab", "faculty_raw": ["AIML_SC"]}],
+            }],
+        })
+
+        class FakeMaster:
+            async def load(self, routine, college_id):
+                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
+
+        with tempfile.TemporaryDirectory() as directory:
+            app.state.master_api = FakeMaster()
+            with patch("app.main.Settings", return_value=Settings(output_dir=directory)), patch(
+                "app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="],
+            ), patch("app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted]):
+                async def request():
+                    transport = httpx.ASGITransport(app=app)
+                    async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+                        return await client.post("/routines/standardize?college_id=1", files={
+                            "file": ("nsec.pdf", b"pdf", "application/pdf"),
+                        })
+                response = asyncio.run(request())
+
+            self.assertEqual(response.status_code, 200, response.text)
+            payload = response.json()
+            self.assertEqual(payload["source_type"], "document")
+            self.assertEqual(payload["routine_count"], 1)
+            self.assertEqual(len(payload["routines"]), 1)
+            routine = payload["routines"][0]
+            self.assertEqual((routine["course"], routine["department"], routine["year"],
+                              routine["semester"], routine["section"]["raw"]),
+                             ("B.Tech", "AIML", "2", "3", "AIML.2A"))
+            self.assertEqual(routine["slots"][0]["start_period"], 4)
+            self.assertEqual(routine["slots"][0]["end_period"], 5)
+            self.assertEqual(routine["slots"][0]["activities"][0]["faculty"][0]["raw"], "AIML_SC")
+            self.assertEqual(json.loads(Path(payload["output_file"]).read_text()), payload)
+
+    def test_generic_workbook_fallback_keeps_routines_wrapper(self):
+        extracted = RoutineExtraction.model_validate({"department": "ECE", "section": "ECE.1",
+            "slots": [{"day": "Monday", "start_time": "10:00", "end_time": "11:00",
+                       "slot_type": "class", "activities": [{"subject_raw": "Circuits"}]}],
+        })
+
+        class FakeMaster:
+            async def load(self, routine, college_id):
+                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
+
+        with patch("app.services.routine_processor.is_excel_workbook", return_value=True), patch(
+            "app.services.routine_processor.TINTProfile.extract", side_effect=NoRoutineBlocks("Other layout"),
+        ), patch("app.services.routine_processor.workbook_text", return_value="Sheet: Routine"), patch(
+            "app.services.routine_processor.RoutineExtractor",
+        ) as extractor_type:
+            extractor_type.return_value.extract = AsyncMock(return_value=[extracted])
+            result = asyncio.run(process_routine(b"workbook", Settings(), FakeMaster(), 2))
+
+        self.assertEqual(extractor_type.call_args.args[1].name, "generic")
+        self.assertEqual(result.source_type, "workbook")
+        self.assertEqual(result.routine_count, 1)
+        self.assertEqual(result.routines[0].section.raw, "ECE.1")
+        self.assertEqual(result.routines[0].slots[0].activities[0].subject.raw, "Circuits")
 
     def test_alias_initials_and_department_scope_are_deterministic(self):
         context = RoutineContext(subjects=[], groups=[], sections=[], department="AIML", faculty=[
