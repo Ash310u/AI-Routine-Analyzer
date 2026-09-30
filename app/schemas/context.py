@@ -13,6 +13,9 @@ class SubjectRecord(BaseModel):
     course: str | None = None
     stream: str | None = None
     semester: str | None = None
+    course_master_id: int | None = None
+    stream_master_id: int | None = None
+    semester_master_id: int | None = None
 
 
 class FacultyRecord(BaseModel):
@@ -39,12 +42,14 @@ class GroupRecord(BaseModel):
     id: str | int
     name: str
     section_id: str | int | None = None
+    class_id: str | int | None = None
 
 
 class SectionRecord(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str | int
     name: str
+    class_id: str | int | None = None
 
 
 class RoutineContext(BaseModel):
@@ -57,3 +62,7 @@ class RoutineContext(BaseModel):
     course: str | None = None
     semester: str | None = None
     college_id: int | None = None
+    session_id: int | None = None
+    course_master_id: int | None = None
+    stream_master_id: int | None = None
+    semester_master_id: int | None = None

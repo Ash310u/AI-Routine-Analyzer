@@ -38,6 +38,36 @@ class FakeEmbeddings:
 
 
 class VisualWorkbookTest(unittest.TestCase):
+    def test_each_visual_sheet_is_extracted_and_section_uses_visible_heading(self):
+        transcription = VisualWorkbook(sheets=[VisualSheet(cells=[
+            VisualCell(row=1, column=1, text=f"AIML.{section}"),
+            VisualCell(row=2, column=1, text="Mo"),
+            VisualCell(row=2, column=2, text="DSA"),
+        ]) for section in ("2A", "3A")])
+
+        async def extract_sheet(_images, document_text):
+            section = "2A" if "AIML.2A" in document_text else "3A"
+            return [RoutineExtraction.model_validate({
+                "course": "AIML", "section": section,
+                "slots": [{"day": "Monday", "slot_type": "class",
+                           "activities": [{"subject_raw": "DSA"}]}],
+            })]
+
+        class EmptyMaster:
+            async def load(self, routine, college_id):
+                return RoutineContext(subjects=[], faculty=[], groups=[], sections=[], college_id=college_id)
+
+        with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
+            "app.services.routine_processor.VisualWorkbookExtractor.extract", return_value=transcription,
+        ), patch("app.services.routine_processor.RoutineExtractor.extract", side_effect=extract_sheet):
+            result = asyncio.run(process_routine(
+                b"pdf", Settings(subject_embedding_backend="off", openai_api_key="test"), EmptyMaster(), 1, 27,
+            ))
+        self.assertEqual(result.routine_count, 2)
+        self.assertEqual([item.section.raw for item in result.routines], ["AIML.2A", "AIML.3A"])
+        self.assertEqual([item.department for item in result.routines], ["AIML", "AIML"])
+        self.assertEqual([item.course for item in result.routines], [None, None])
+
     def test_image_upload_saves_literal_excel_then_returns_grounded_json(self):
         class FakeModel:
             def __init__(self):
@@ -75,7 +105,7 @@ class VisualWorkbookTest(unittest.TestCase):
                 async def request():
                     transport = httpx.ASGITransport(app=app)
                     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
-                        return await client.post("/routines/standardize?college_id=1", files={
+                        return await client.post("/routines/standardize?college_id=1&session_id=27", files={
                             "file": ("aeie.png", b"fake-image", "image/png"),
                         })
                 response = asyncio.run(request())
@@ -260,7 +290,7 @@ class VisualWorkbookTest(unittest.TestCase):
         with patch("app.services.routine_processor.is_excel_workbook", return_value=True), patch(
             "app.services.routine_processor.TINTProfile.extract", return_value=[routine],
         ), patch("app.resolvers.subject_embeddings.OpenAIEmbeddings", return_value=model):
-            result = asyncio.run(process_routine(b"workbook", settings, Master(), 2))
+            result = asyncio.run(process_routine(b"workbook", settings, Master(), 2, 28))
         activity = result.routines[0].slots[0].activities[0]
         self.assertEqual(activity.subject.subject_master_id, 8)
         self.assertEqual(activity.subject.match_method, "embedding")
@@ -349,8 +379,8 @@ class VisualWorkbookTest(unittest.TestCase):
                 with patch("app.services.routine_processor.is_excel_workbook", return_value=True), patch(
                     "app.services.routine_processor.TINTProfile.extract", return_value=[routine],
                 ), patch("app.resolvers.subject_embeddings._LocalEmbeddings", return_value=model):
-                    first = await process_routine(b"workbook", settings, master, 1)
-                    second = await process_routine(b"workbook", settings, master, 2)
+                    first = await process_routine(b"workbook", settings, master, 1, 27)
+                    second = await process_routine(b"workbook", settings, master, 2, 28)
                 self.assertEqual(first.routines[0].slots[0].activities[0].subject.subject_master_id, 1)
                 self.assertEqual(second.routines[0].slots[0].activities[0].subject.subject_master_id, 2)
                 self.assertEqual({int(httpx.URL(url).params["college_id"]) for url in calls}, {1, 2})

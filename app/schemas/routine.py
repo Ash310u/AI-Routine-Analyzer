@@ -8,12 +8,15 @@ class ResolvedSection(BaseModel):
     raw: str | None
     section_id: str | int | None = None
     name: str | None = None
+    class_id: str | int | None = None
 
 
 class ResolvedGroup(BaseModel):
     raw: str
     group_id: str | int | None = None
+    parent_class_master_id: str | int | None = None
     name: str | None = None
+    class_id: str | int | None = None
 
 
 class ResolvedSubject(BaseModel):
@@ -23,7 +26,7 @@ class ResolvedSubject(BaseModel):
     code: str | None = None
     name: str | None = None
     category: str | None = None
-    match_method: Literal["code", "alias", "exact_name", "acronym", "fuzzy", "embedding", "unresolved", "ambiguous"]
+    match_method: Literal["code", "alias", "exact_name", "acronym", "name_abbreviation", "fuzzy", "embedding", "unresolved", "ambiguous"]
 
 
 class ResolvedFaculty(BaseModel):
@@ -50,6 +53,12 @@ class ResolvedActivity(BaseModel):
 
 
 class ResolvedSlot(BaseModel):
+    college_id: int | None = None
+    session_id: int | None = None
+    course_master_id: int | None = None
+    stream_master_id: int | None = None
+    semester_master_id: int | None = None
+    section: ResolvedSection
     day: str | None
     start_period: int | None = Field(default=None, ge=1)
     end_period: int | None = Field(default=None, ge=1)
@@ -62,6 +71,10 @@ class ResolvedSlot(BaseModel):
 
 class StandardizedRoutine(BaseModel):
     college_id: int | None = None
+    session_id: int | None = None
+    course_master_id: int | None = None
+    stream_master_id: int | None = None
+    semester_master_id: int | None = None
     college: str | None
     course: str | None
     department: str | None
@@ -78,6 +91,7 @@ class StandardizedRoutine(BaseModel):
 
 class StandardizedWorkbook(BaseModel):
     college_id: int | None = None
+    session_id: int | None = None
     source_type: Literal["workbook"] = "workbook"
     routine_count: int
     routines: list[StandardizedRoutine]
@@ -87,6 +101,7 @@ class StandardizedWorkbook(BaseModel):
 
 class StandardizedDocument(BaseModel):
     college_id: int | None = None
+    session_id: int | None = None
     source_type: Literal["document"] = "document"
     routine_count: int
     routines: list[StandardizedRoutine]

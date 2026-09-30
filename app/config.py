@@ -26,6 +26,8 @@ class Settings(BaseSettings):
     faculty_api_base_url: str = ""
     group_api_base_url: str = ""
     section_api_base_url: str = ""
+    parent_class_api_url: str = "https://erp.tint.edu.in/api/public/parent-class-room-list"
+    child_class_api_url: str = "https://erp.tint.edu.in/api/public/child-class-room-list"
     master_api_key: str = ""
     master_api_auth_header: str = "Authorization"
     master_api_auth_scheme: str = "Bearer"

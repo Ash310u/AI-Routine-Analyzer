@@ -97,7 +97,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         ), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=extracted,
         ):
-            result = asyncio.run(process_routine(b"pdf", Settings(subject_embedding_backend="off"), master, 1))
+            result = asyncio.run(process_routine(b"pdf", Settings(subject_embedding_backend="off"), master, 1, 27))
         self.assertEqual(master.college_id, 1)
         self.assertEqual(result.source_type, "document")
         self.assertEqual(result.college_id, 1)
@@ -109,7 +109,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         self.assertEqual([item.semester for item in result.routines], ["3", "1"])
         self.assertEqual([item.slots[0].activities[0].subject.raw for item in result.routines], ["DSA", "DSA"])
 
-    def test_one_nsec_llm_response_resolves_faculty_by_each_routine_department(self):
+    def test_nsec_sheets_resolve_faculty_by_each_routine_department(self):
         parsed = {"routines": [
             {"department": department, "section": f"{department}.2A", "slots": [{
                 "day": "Monday", "start_time": "10:00", "end_time": "11:00",
@@ -124,7 +124,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
                        {"row": 2, "column": 1, "text": "Class DB CSE_DB12"}]},
             {"cells": [{"row": 1, "column": 1, "text": "Department: ECE Section: ECE.2A"},
                        {"row": 2, "column": 1, "text": "Class DB ECE_DB12"}]},
-        ]}, parsed])
+        ]}, {"routines": [parsed["routines"][0]]}, {"routines": [parsed["routines"][1]]}])
         employees = _faculty([
             {"EmployeeId": 41, "EmployeeName": "Debashis Bose", "Stream": "ECE", "Department": "Academics", "Abbreviation": "DB"},
             {"EmployeeId": 42, "EmployeeName": "Dipak Banerjee", "Stream": "CSE", "Department": "Academics", "Abbreviation": "DB"},
@@ -146,8 +146,8 @@ class ProfilesAndResolutionTest(unittest.TestCase):
             with patch("app.services.routine_processor.image_data_urls", return_value=["data:image/png;base64,AA=="]), patch(
                 "app.llm.extractor.ChatOpenAI", return_value=model,
             ):
-                result = asyncio.run(process_routine(b"pdf", settings, master, 1, "nsec.pdf"))
-            self.assertEqual(len(model.calls), 2)
+                result = asyncio.run(process_routine(b"pdf", settings, master, 1, 27, "nsec.pdf"))
+            self.assertEqual(len(model.calls), 3)
             workbook = Path(result.converted_workbook_file)
             self.assertTrue(workbook.is_file())
             self.assertEqual(workbook.suffix, ".xlsx")
@@ -190,7 +190,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         ), patch(
             "app.services.routine_processor.RoutineExtractor.extract", return_value=[extracted],
         ):
-            result = asyncio.run(process_routine(b"pdf", Settings(subject_embedding_backend="off"), FakeMaster(), 1))
+            result = asyncio.run(process_routine(b"pdf", Settings(subject_embedding_backend="off"), FakeMaster(), 1, 27))
         payload = result.model_dump(mode="json")
         self.assertEqual((payload["source_type"], payload["routine_count"], len(payload["routines"])),
                          ("document", 1, 1))
@@ -241,7 +241,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
                 async def request():
                     transport = httpx.ASGITransport(app=app)
                     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
-                        return await client.post("/routines/standardize?college_id=1", files={
+                        return await client.post("/routines/standardize?college_id=1&session_id=27", files={
                             "file": ("nsec.pdf", b"pdf", "application/pdf"),
                         })
                 response = asyncio.run(request())
@@ -276,7 +276,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
             "app.services.routine_processor.RoutineExtractor",
         ) as extractor_type:
             extractor_type.return_value.extract = AsyncMock(return_value=[extracted])
-            result = asyncio.run(process_routine(b"workbook", Settings(subject_embedding_backend="off"), FakeMaster(), 2))
+            result = asyncio.run(process_routine(b"workbook", Settings(subject_embedding_backend="off"), FakeMaster(), 2, 28))
 
         self.assertEqual(extractor_type.call_args.args[1].name, "generic")
         self.assertEqual(result.source_type, "workbook")
@@ -478,7 +478,7 @@ class ProfilesAndResolutionTest(unittest.TestCase):
         matched = resolve.subject("OOP Lab", None, context)
         self.assertEqual(matched.subject_master_id, 743)
         self.assertEqual(matched.match_method, "acronym")
-        self.assertIsNone(resolve.subject("OOP", None, context).subject_master_id)
+        self.assertEqual(resolve.subject("OOP", None, context).subject_master_id, 736)
 
     def test_master_cache_is_scoped_by_college_id(self):
         settings = Settings(subject_api_base_url="https://example.test/subjects",

@@ -93,14 +93,15 @@ def _search(query: np.ndarray, scoped_index) -> list[tuple[float, SubjectRecord]
 
 async def embedding_subject_matches(
     routines: list[RoutineExtraction], context: RoutineContext, settings: Settings,
-    embedding_model=None,
+    embedding_model=None, contexts: list[RoutineContext] | None = None,
 ) -> dict[tuple, ResolvedSubject]:
     """Search only the API catalog for this upload's college after text matching fails."""
     if embedding_model is None and settings.subject_embedding_backend == "off":
         return {}
     requests = {}
-    for routine in routines:
-        scoped_context = context.model_copy(update={
+    for position, routine in enumerate(routines):
+        routine_context = contexts[position] if contexts is not None else context
+        scoped_context = routine_context.model_copy(update={
             "department": routine.department, "course": routine.course,
             "semester": routine.semester, "section": routine.section,
         })

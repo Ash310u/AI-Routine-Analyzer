@@ -1,4 +1,6 @@
 from contextlib import asynccontextmanager
+import logging
+import time
 
 import httpx
 from fastapi import FastAPI, File, HTTPException, Query, UploadFile
@@ -11,6 +13,9 @@ from app.llm.extractor import ExtractionError, ModelServiceError
 from app.schemas.routine import StandardizedDocument, StandardizedWorkbook
 from app.services.routine_processor import process_routine
 from app.services.output_store import save_routine
+
+
+logger = logging.getLogger("uvicorn.error")
 
 
 @asynccontextmanager
@@ -33,6 +38,7 @@ async def health() -> dict[str, str]:
 @app.post("/routines/standardize", response_model=StandardizedWorkbook | StandardizedDocument)
 async def standardize(
     file: UploadFile = File(...), college_id: int = Query(..., ge=1),
+    session_id: int = Query(..., ge=1),
 ) -> StandardizedWorkbook | StandardizedDocument:
     settings = Settings()
     limit = settings.max_upload_mb * 1024 * 1024
@@ -40,8 +46,13 @@ async def standardize(
     if len(data) > limit:
         raise HTTPException(status_code=413, detail="File exceeds upload limit")
     try:
-        routine = await process_routine(data, settings, app.state.master_api, college_id, file.filename)
+        routine = await process_routine(data, settings, app.state.master_api,
+                                        college_id, session_id, file.filename)
+        logger.info("▶ Save standardized JSON: file=%s", file.filename)
+        started = time.perf_counter()
         save_routine(routine, file.filename, settings)
+        logger.info("✓ Save standardized JSON: file=%s elapsed=%.1fs", file.filename,
+                    time.perf_counter() - started)
         return routine
     except DocumentError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

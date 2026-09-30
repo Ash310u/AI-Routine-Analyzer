@@ -1,0 +1,332 @@
+{
+  "app/__init__.py": {
+    "mtime": 1790451299.5992942,
+    "ast_hash": "5727657aa501dbc67f09fc2015a40ebb",
+    "semantic_hash": "5727657aa501dbc67f09fc2015a40ebb"
+  },
+  "app/clients/__init__.py": {
+    "mtime": 1790374395.5678823,
+    "ast_hash": "68b329da9893e34099c7d8ad5cb9c940",
+    "semantic_hash": "68b329da9893e34099c7d8ad5cb9c940"
+  },
+  "app/clients/classroom_api.py": {
+    "mtime": 1790584405.4593945,
+    "ast_hash": "d9c16ed915a8433187301cd91fc990da",
+    "semantic_hash": "d9c16ed915a8433187301cd91fc990da"
+  },
+  "app/clients/master_api.py": {
+    "mtime": 1790583294.321807,
+    "ast_hash": "c43415f7124216d6d4d94104392981ca",
+    "semantic_hash": "c43415f7124216d6d4d94104392981ca"
+  },
+  "app/config.py": {
+    "mtime": 1790582952.7407653,
+    "ast_hash": "1c724676df1561a0eb68cc130e63e88f",
+    "semantic_hash": "1c724676df1561a0eb68cc130e63e88f"
+  },
+  "app/ingestion/__init__.py": {
+    "mtime": 1790374395.1648796,
+    "ast_hash": "68b329da9893e34099c7d8ad5cb9c940",
+    "semantic_hash": "68b329da9893e34099c7d8ad5cb9c940"
+  },
+  "app/ingestion/document.py": {
+    "mtime": 1790404129.442569,
+    "ast_hash": "f784dda2d0881a70ad58d026c06e5350",
+    "semantic_hash": "f784dda2d0881a70ad58d026c06e5350"
+  },
+  "app/ingestion/spreadsheet.py": {
+    "mtime": 1790406053.0294094,
+    "ast_hash": "572fb1392ed5c178c5de145b19786394",
+    "semantic_hash": "572fb1392ed5c178c5de145b19786394"
+  },
+  "app/ingestion/spreadsheet_routines.py": {
+    "mtime": 1790515069.0785525,
+    "ast_hash": "26c02d19302f715822d929aecd132e29",
+    "semantic_hash": "26c02d19302f715822d929aecd132e29"
+  },
+  "app/ingestion/visual_workbook.py": {
+    "mtime": 1790525019.1739492,
+    "ast_hash": "cb2b1c853c98edb063c1bcad4f9d5285",
+    "semantic_hash": "cb2b1c853c98edb063c1bcad4f9d5285"
+  },
+  "app/ingestion/workbook_evidence.py": {
+    "mtime": 1790520982.3501234,
+    "ast_hash": "8ac3ef5fb9439edce1726aff679b59a5",
+    "semantic_hash": "8ac3ef5fb9439edce1726aff679b59a5"
+  },
+  "app/llm/__init__.py": {
+    "mtime": 1790374395.3448808,
+    "ast_hash": "68b329da9893e34099c7d8ad5cb9c940",
+    "semantic_hash": "68b329da9893e34099c7d8ad5cb9c940"
+  },
+  "app/llm/extractor.py": {
+    "mtime": 1790512819.163694,
+    "ast_hash": "69cca2bd77167f5d5392305edf47f1ae",
+    "semantic_hash": "69cca2bd77167f5d5392305edf47f1ae"
+  },
+  "app/llm/prompts.py": {
+    "mtime": 1790524980.6486704,
+    "ast_hash": "4edf0340652dfb28fce28d46b7372207",
+    "semantic_hash": "4edf0340652dfb28fce28d46b7372207"
+  },
+  "app/main.py": {
+    "mtime": 1790583301.0248082,
+    "ast_hash": "b8273e6679b5f88306ae95936c9cd0f0",
+    "semantic_hash": "b8273e6679b5f88306ae95936c9cd0f0"
+  },
+  "app/profiles/__init__.py": {
+    "mtime": 1790450919.2543838,
+    "ast_hash": "54a43107ef676320ea8647e224418684",
+    "semantic_hash": "54a43107ef676320ea8647e224418684"
+  },
+  "app/profiles/converted_workbook.py": {
+    "mtime": 1790524980.735671,
+    "ast_hash": "5a0d4be7acf3b26f43dc27ce6fd6f89d",
+    "semantic_hash": "5a0d4be7acf3b26f43dc27ce6fd6f89d"
+  },
+  "app/profiles/generic.py": {
+    "mtime": 1790451009.7559054,
+    "ast_hash": "2df30b27862fce03560c62bde7f0c51c",
+    "semantic_hash": "2df30b27862fce03560c62bde7f0c51c"
+  },
+  "app/profiles/nsec.py": {
+    "mtime": 1790512844.9277437,
+    "ast_hash": "b0bd28c4119cff20f9225168eb8138e2",
+    "semantic_hash": "b0bd28c4119cff20f9225168eb8138e2"
+  },
+  "app/profiles/tint.py": {
+    "mtime": 1790450919.3433833,
+    "ast_hash": "d291dd0566b960607adac31d468435ca",
+    "semantic_hash": "d291dd0566b960607adac31d468435ca"
+  },
+  "app/resolvers/__init__.py": {
+    "mtime": 1790374395.7458835,
+    "ast_hash": "68b329da9893e34099c7d8ad5cb9c940",
+    "semantic_hash": "68b329da9893e34099c7d8ad5cb9c940"
+  },
+  "app/resolvers/matching.py": {
+    "mtime": 1790452494.033045,
+    "ast_hash": "397eb8fcf94a545277b9101c13963451",
+    "semantic_hash": "397eb8fcf94a545277b9101c13963451"
+  },
+  "app/resolvers/resolve.py": {
+    "mtime": 1790586645.424579,
+    "ast_hash": "51cd193c272004f3ab29ac4410055b28",
+    "semantic_hash": "51cd193c272004f3ab29ac4410055b28"
+  },
+  "app/resolvers/subject_embeddings.py": {
+    "mtime": 1790584426.413523,
+    "ast_hash": "3ddb32ae7f220d7a7ac6ae98068904f8",
+    "semantic_hash": "3ddb32ae7f220d7a7ac6ae98068904f8"
+  },
+  "app/schemas/__init__.py": {
+    "mtime": 1790374337.0824716,
+    "ast_hash": "68b329da9893e34099c7d8ad5cb9c940",
+    "semantic_hash": "68b329da9893e34099c7d8ad5cb9c940"
+  },
+  "app/schemas/canonical_raw.py": {
+    "mtime": 1790512819.0556939,
+    "ast_hash": "699394f7b28db88227a69eef7085c842",
+    "semantic_hash": "699394f7b28db88227a69eef7085c842"
+  },
+  "app/schemas/context.py": {
+    "mtime": 1790582952.7407653,
+    "ast_hash": "14f85cbe81165d8aff820ad679d64cd1",
+    "semantic_hash": "14f85cbe81165d8aff820ad679d64cd1"
+  },
+  "app/schemas/extraction.py": {
+    "mtime": 1790512819.1106937,
+    "ast_hash": "245b12c3252456e8ce81fc52b969d78e",
+    "semantic_hash": "245b12c3252456e8ce81fc52b969d78e"
+  },
+  "app/schemas/routine.py": {
+    "mtime": 1790584492.9989355,
+    "ast_hash": "4f1ab9bad660dc83913a9bb4647028f3",
+    "semantic_hash": "4f1ab9bad660dc83913a9bb4647028f3"
+  },
+  "app/services/__init__.py": {
+    "mtime": 1790374442.7052155,
+    "ast_hash": "68b329da9893e34099c7d8ad5cb9c940",
+    "semantic_hash": "68b329da9893e34099c7d8ad5cb9c940"
+  },
+  "app/services/output_store.py": {
+    "mtime": 1790519138.4922996,
+    "ast_hash": "d1ad053de7bf9e88a47716b0d7e9668e",
+    "semantic_hash": "d1ad053de7bf9e88a47716b0d7e9668e"
+  },
+  "app/services/routine_processor.py": {
+    "mtime": 1790585947.310048,
+    "ast_hash": "06be29cd9e0166e6a8493fe9a3d8220c",
+    "semantic_hash": "06be29cd9e0166e6a8493fe9a3d8220c"
+  },
+  "tests/test_classroom_api.py": {
+    "mtime": 1790586653.522528,
+    "ast_hash": "041e51611b6e3c4e921dbaff14217b32",
+    "semantic_hash": "041e51611b6e3c4e921dbaff14217b32"
+  },
+  "tests/test_profiles_and_resolution.py": {
+    "mtime": 1790585997.1065466,
+    "ast_hash": "26e01bd432e716b71f94a569e82c5cee",
+    "semantic_hash": "26e01bd432e716b71f94a569e82c5cee"
+  },
+  "tests/test_slot_periods.py": {
+    "mtime": 1790426935.1615508,
+    "ast_hash": "39739983b0d1fd5a98ec56ee2ffdb065",
+    "semantic_hash": "39739983b0d1fd5a98ec56ee2ffdb065"
+  },
+  "tests/test_tint_workbook.py": {
+    "mtime": 1790582955.812739,
+    "ast_hash": "9062d6789955aa54d0099baff61ee458",
+    "semantic_hash": "9062d6789955aa54d0099baff61ee458"
+  },
+  "tests/test_visual_workbook.py": {
+    "mtime": 1790585969.119267,
+    "ast_hash": "7eb9c21891e657b92a6ac6cab66c7a57",
+    "semantic_hash": "7eb9c21891e657b92a6ac6cab66c7a57"
+  },
+  "FLOWCHART.md": {
+    "mtime": 1790513105.0685332,
+    "ast_hash": "47f52a6616a4a2f2ec166d4ca6356e91",
+    "semantic_hash": "47f52a6616a4a2f2ec166d4ca6356e91"
+  },
+  "README.md": {
+    "mtime": 1790586434.6987677,
+    "ast_hash": "aa493538ff4a3db34b066ea0888f24d3",
+    "semantic_hash": "aa493538ff4a3db34b066ea0888f24d3"
+  },
+  "implementation_llm.md": {
+    "mtime": 1790451241.8019285,
+    "ast_hash": "2b49dd185700a7c0ab1977acdad0404b",
+    "semantic_hash": "2b49dd185700a7c0ab1977acdad0404b"
+  },
+  "requirements.txt": {
+    "mtime": 1790525771.915951,
+    "ast_hash": "9a8156c51f5f2bcddb49fc06751055a1",
+    "semantic_hash": "9a8156c51f5f2bcddb49fc06751055a1"
+  },
+  "Routines/NSEC/AEIE/Odd sem routine AEIE_V1.pdf": {
+    "mtime": 1790403742.5204844,
+    "ast_hash": "6503164917d5942af1a0457e595be4e8",
+    "semantic_hash": "6503164917d5942af1a0457e595be4e8"
+  },
+  "Routines/NSEC/AEIE/Routine_V3_AEIE.pdf": {
+    "mtime": 1790403742.5204844,
+    "ast_hash": "d46d09e6a6d8aa11351ae27ba58435c6",
+    "semantic_hash": "d46d09e6a6d8aa11351ae27ba58435c6"
+  },
+  "Routines/NSEC/AIML/Odd sem routine AIML_V1.pdf": {
+    "mtime": 1790403742.5207703,
+    "ast_hash": "43634f2d8f026b0509d65d75b5ebf722",
+    "semantic_hash": "43634f2d8f026b0509d65d75b5ebf722"
+  },
+  "Routines/NSEC/AIML/Routine_V2_AIML.pdf": {
+    "mtime": 1790403742.5207703,
+    "ast_hash": "717a070bf32f619e8035eb5591e69f4e",
+    "semantic_hash": "717a070bf32f619e8035eb5591e69f4e"
+  },
+  "Routines/NSEC/BBA/Odd sem routine BBA_V1.pdf": {
+    "mtime": 1790403742.5210397,
+    "ast_hash": "33660693ea4e72cb0e5ee03eeec306ff",
+    "semantic_hash": "33660693ea4e72cb0e5ee03eeec306ff"
+  },
+  "Routines/NSEC/BCA/Odd sem routine BCA_V1.pdf": {
+    "mtime": 1790403742.521237,
+    "ast_hash": "145126fdb8eaff791b46ef2775a76841",
+    "semantic_hash": "145126fdb8eaff791b46ef2775a76841"
+  },
+  "Routines/NSEC/BESH/Routine_2026-27_V3_BESH_Sem1.pdf": {
+    "mtime": 1790403742.5213761,
+    "ast_hash": "9c59db97a70221c4437f87b55b6ce5c9",
+    "semantic_hash": "9c59db97a70221c4437f87b55b6ce5c9"
+  },
+  "Routines/NSEC/BME/Odd sem routine BME_V1.pdf": {
+    "mtime": 1790403742.521632,
+    "ast_hash": "aa68ceea17fb85cdf0005d2b1a7be9ea",
+    "semantic_hash": "aa68ceea17fb85cdf0005d2b1a7be9ea"
+  },
+  "Routines/NSEC/BME/Odd sem routine BME_V3.pdf": {
+    "mtime": 1790403742.521632,
+    "ast_hash": "eaa1c73f3d83922be064f9abe5c0451f",
+    "semantic_hash": "eaa1c73f3d83922be064f9abe5c0451f"
+  },
+  "Routines/NSEC/CE/Odd sem routine Civil_V1.pdf": {
+    "mtime": 1790403742.5218227,
+    "ast_hash": "a0863c8b50b72bef11a1f4815fd5031c",
+    "semantic_hash": "a0863c8b50b72bef11a1f4815fd5031c"
+  },
+  "Routines/NSEC/CSBS/Odd sem routine CSBS_V1.pdf": {
+    "mtime": 1790403742.5219443,
+    "ast_hash": "c38621d277c5179c88a6875d3e32c339",
+    "semantic_hash": "c38621d277c5179c88a6875d3e32c339"
+  },
+  "Routines/NSEC/CSE/Odd sem routine CSE (2)_V1.pdf": {
+    "mtime": 1790403742.5220397,
+    "ast_hash": "7f73d724d30ddac1bb7716c653b4f8a2",
+    "semantic_hash": "7f73d724d30ddac1bb7716c653b4f8a2"
+  },
+  "Routines/NSEC/CSE/Odd sem routine CSE (3)_V1.pdf": {
+    "mtime": 1790403742.5220397,
+    "ast_hash": "0e9b8f189b246c9460b3f12fe95a43ea",
+    "semantic_hash": "0e9b8f189b246c9460b3f12fe95a43ea"
+  },
+  "Routines/NSEC/CSE/Odd sem routine CSE (4)_V1.pdf": {
+    "mtime": 1790403742.5220397,
+    "ast_hash": "39fe8f8939117e9c5e2f504689e2c202",
+    "semantic_hash": "39fe8f8939117e9c5e2f504689e2c202"
+  },
+  "Routines/NSEC/CSE/Odd sem routine CSE(1)_V1.pdf": {
+    "mtime": 1790403742.5220397,
+    "ast_hash": "cf1371aa66d50b47462c450b88122a58",
+    "semantic_hash": "cf1371aa66d50b47462c450b88122a58"
+  },
+  "Routines/NSEC/CSE/Odd sem routine CSE_V1.pdf": {
+    "mtime": 1790403742.522487,
+    "ast_hash": "f027fbdacbe9f6de0e30cccef556584e",
+    "semantic_hash": "f027fbdacbe9f6de0e30cccef556584e"
+  },
+  "Routines/NSEC/ECE/ECE ROUTINE V-3.pdf": {
+    "mtime": 1790403742.5227268,
+    "ast_hash": "9a10922ca5190ce28e2325723b75e25a",
+    "semantic_hash": "9a10922ca5190ce28e2325723b75e25a"
+  },
+  "Routines/NSEC/ECE/ECEV-3_17-8-26_signed.pdf": {
+    "mtime": 1790403742.522825,
+    "ast_hash": "4279bd5daae33e8b9e1f5dd6433a5efd",
+    "semantic_hash": "4279bd5daae33e8b9e1f5dd6433a5efd"
+  },
+  "Routines/NSEC/ECE/ECE_NON-DEPT ODD 2026 SLOTS V-2.pdf": {
+    "mtime": 1790403742.5229378,
+    "ast_hash": "e526e894c3ca938d07cdd6ee0f7a9806",
+    "semantic_hash": "e526e894c3ca938d07cdd6ee0f7a9806"
+  },
+  "Routines/NSEC/ECE/ECE_V2.pdf": {
+    "mtime": 1790403742.5230396,
+    "ast_hash": "39cb6b87bc585447ae33d6efe690ac60",
+    "semantic_hash": "39cb6b87bc585447ae33d6efe690ac60"
+  },
+  "Routines/NSEC/ECE/Odd sem routine ECE_V1.pdf": {
+    "mtime": 1790403742.5230396,
+    "ast_hash": "40545a23cb07b67a906f8e2aed1c4fc1",
+    "semantic_hash": "40545a23cb07b67a906f8e2aed1c4fc1"
+  },
+  "Routines/NSEC/EE and E&CE/Odd sem routine EE and E&CE.pdf": {
+    "mtime": 1790403742.5233567,
+    "ast_hash": "8205c5e12a862c616239affbf0199511",
+    "semantic_hash": "8205c5e12a862c616239affbf0199511"
+  },
+  "Routines/NSEC/IT/Odd sem routine IT_V1.pdf": {
+    "mtime": 1790403742.5235,
+    "ast_hash": "8d2cf820f13d84021b8630a276cb6ecf",
+    "semantic_hash": "8d2cf820f13d84021b8630a276cb6ecf"
+  },
+  "Routines/NSEC/ME/Odd sem routine ME_V1.pdf": {
+    "mtime": 1790403742.523679,
+    "ast_hash": "ea6144b041a22375f8ff797a4dc77a66",
+    "semantic_hash": "ea6144b041a22375f8ff797a4dc77a66"
+  },
+  "Routines/NSEC/ME/Routine_ME_V2.pdf": {
+    "mtime": 1790403742.523679,
+    "ast_hash": "a7e989fbf63940575df73556d8a3d500",
+    "semantic_hash": "a7e989fbf63940575df73556d8a3d500"
+  }
+}
