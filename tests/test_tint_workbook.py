@@ -42,10 +42,23 @@ class TintWorkbookTest(unittest.TestCase):
         self.assertEqual(response.status_code, 422)
         self.assertIn("college_id", response.text)
 
+    def test_upload_requires_session_id(self):
+        async def request():
+            transport = httpx.ASGITransport(app=app)
+            async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+                return await client.post(
+                    "/routines/standardize?college_id=2",
+                    files={"file": ("tint.xlsx", b"workbook", "application/octet-stream")},
+                )
+
+        response = asyncio.run(request())
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("session_id", response.text)
+
     def test_upload_returns_and_saves_all_routines_without_llm(self):
         master = FakeMaster()
         with tempfile.TemporaryDirectory() as directory:
-            settings = Settings(output_dir=directory)
+            settings = Settings(output_dir=directory, subject_embedding_backend="off")
             app.state.master_api = master
             with patch("app.main.Settings", return_value=settings), patch(
                 "app.services.routine_processor.RoutineExtractor.extract",
@@ -56,7 +69,7 @@ class TintWorkbookTest(unittest.TestCase):
                     async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
                         with WORKBOOK.open("rb") as stream:
                             return await client.post(
-                                "/routines/standardize?college_id=2",
+                                "/routines/standardize?college_id=2&session_id=28",
                                 files={"file": (WORKBOOK.name, stream,
                                                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")},
                             )
@@ -66,6 +79,7 @@ class TintWorkbookTest(unittest.TestCase):
             payload = response.json()
             self.assertEqual(payload["source_type"], "workbook")
             self.assertEqual(payload["college_id"], 2)
+            self.assertEqual(payload["session_id"], 28)
             self.assertEqual(payload["routine_count"], 30)
             self.assertEqual(len(payload["routines"]), 30)
             self.assertEqual(sum(len(r["slots"]) for r in payload["routines"]), 1084)
@@ -75,6 +89,8 @@ class TintWorkbookTest(unittest.TestCase):
             first = payload["routines"][0]
             self.assertEqual(first["department"], "CSE")
             self.assertEqual(first["section"]["raw"], "1")
+            self.assertTrue(all(slot["session_id"] == 28 and slot["section"] == routine["section"]
+                                for routine in payload["routines"] for slot in routine["slots"]))
             lab = next(slot for slot in first["slots"] if len(slot["activities"]) == 2)
             self.assertEqual({item["group"]["raw"] for item in lab["activities"]},
                              {"Gr-A", "Gr-B"})
